@@ -22,3 +22,10 @@ Once a user signs up and creates a profile, they are directed to the home page, 
 After the walk is finished, users can upload a complete summary of the walk, including notes for the owner, the route taken, as well as pictures from the walk. Users can even pinpoint the exact locations of the dog’s deposits, allowing for trends in the dog’s habits to emerge and making the act of walking a dog more predictable. 
 
 Never has logging a dog’s logs been this easy or fun!
+
+WireFrames: 
+https://www.fluidui.com/editor/live/preview/p_qOc7a7Kk7nL26nJdMEnshbx521wMxqS8.1500488547896
+
+ERD:
+
+https://www.lucidchart.com/documents/edit/965b2f0b-83fe-4c2c-ae8d-09ab3e305702#
