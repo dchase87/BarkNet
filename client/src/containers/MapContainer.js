@@ -4,61 +4,11 @@ import {
   Component,
 } from "react"
 
-import {
-  withGoogleMap,
-  GoogleMap,
-  DirectionsRenderer,
-  Marker,
-  InfoWindow
-} from 'react-google-maps'
-
-const GoogleDirectionsMap = withGoogleMap(props => (
-  <GoogleMap
-    zoom={props.zoom}
-    center={props.center}
-  >
-    {props.center.lat() !== 40.728087 && <Marker
-      position={{ lat: props.center.lat(), lng: props.center.lng()}}
-      animation={google.maps.Animation.DROP}
-    />}
-
-    {props.markers.length > 0 && props.markers.map((marker, index) => {
-      const onClick = () => props.onMarkerClick(marker)
-      const onCloseClick = () => props.onCloseClick(marker)
-      const onAddClick = () => props.onAddClick(marker)
-      const onRemoveClick = () => props.onRemoveClick(marker)
-
-      return (
-        <Marker
-          key={index}
-          position={{ lat: marker.lat, lng: marker.long }}
-          animation={google.maps.Animation.DROP}
-          onClick={onClick}
-        >
-          {marker.showInfo && (
-            <InfoWindow onCloseClick={onCloseClick}>
-              <div>
-                <strong>{marker.name}</strong>
-                <br />
-                <p>{marker.location}</p>
-                {!marker.added ? <button onClick={onAddClick}>Click Here to Add To Route!</button>
-                : <button onClick={onRemoveClick}>Remove From Route</button>}
-              </div>
-            </InfoWindow>
-            )}
-          </Marker>
-      )
-    })}
-
-
-    {props.waypoints.length > 0 && <DirectionsRenderer directions={props.directions} />}
-  </GoogleMap>
-))
-
+import GoogleDirectionsMap from '../components/GoogleMap'
 /*
  * Add <script src="https://maps.googleapis.com/maps/api/js"></script> to your HTML to provide google.maps reference
  */
-export default class Map extends Component {
+export default class MapContainer extends Component {
 
   state = {
     origin: new google.maps.LatLng(40.728087, -73.995669), // NEED TO PASS IN START ADDRESS HERE THROUGH FORM
@@ -76,6 +26,7 @@ export default class Map extends Component {
       destination: new google.maps.LatLng(nextProps.mapData.lat, nextProps.mapData.long),
       zoom: nextProps.mapData.zoom,
       markers: [],
+      waypoints: [],
       directions: null,
       error: false
     })
@@ -178,8 +129,6 @@ export default class Map extends Component {
     console.log('removing waypoint', this.state.waypoints)
 }
 
-
-
   handleCloseClick = (targetMarker) => {
     this.setState({
       markers: this.state.markers.map(marker => {
@@ -226,25 +175,25 @@ export default class Map extends Component {
     console.log('render', this.state.waypoints)
     return (
       <div>
-      <GoogleDirectionsMap
-        containerElement={
-          <div  style={{ height: `500px` }} />
-        }
-        mapElement={
-          <div id='dave' style={{ height: `500px` }} />
-        }
-        zoom={this.state.zoom}
-        center={this.state.origin}
-        // onMarkerClick={}
-        waypoints={this.state.waypoints}
-        markers={this.state.markers}
-        onMarkerClick={this.handleMarkerClick}
-        onCloseClick={this.handleCloseClick}
-        onAddClick={this.handleAddClick}
-        onRemoveClick={this.handleRemoveClick}
-        directions={this.state.directions}
-      />
-      {this.state.error === true && <h3>No Cool Dog Stuff in this area :(</h3>}
+        <GoogleDirectionsMap
+          containerElement={
+            <div  style={{ height: `500px` }} />
+          }
+          mapElement={
+            <div id='dave' style={{ height: `500px` }} />
+          }
+          zoom={this.state.zoom}
+          center={this.state.origin}
+          // onMarkerClick={}
+          waypoints={this.state.waypoints}
+          markers={this.state.markers}
+          onMarkerClick={this.handleMarkerClick}
+          onCloseClick={this.handleCloseClick}
+          onAddClick={this.handleAddClick}
+          onRemoveClick={this.handleRemoveClick}
+          directions={this.state.directions}
+        />
+        {this.state.error === true && <h3>No Cool Dog Stuff in this area :(</h3>}
       </div>
     );
   }

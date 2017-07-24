@@ -1,6 +1,6 @@
 import React from 'react'
 import AddressForm from '../components/AddressForm'
-import Map from '../components/Map'
+import MapContainer from './MapContainer'
 import { Grid } from 'semantic-ui-react'
 
 export default class MainMapContainer extends React.Component {
@@ -27,7 +27,7 @@ export default class MainMapContainer extends React.Component {
           <AddressForm passUpLocation={this.setNewMap}/>
         </Grid.Column>
         <Grid.Column width={12}>
-          <Map mapData={this.state} />
+          <MapContainer mapData={this.state} />
         </Grid.Column>
       </Grid>
     )
