@@ -21,6 +21,7 @@ export default class MapContainer extends Component {
   }
 
   componentWillReceiveProps = nextProps => {
+    if (nextProps.mapData.lat !== this.props.mapData.lat) {
     this.setState({
       origin: new google.maps.LatLng(nextProps.mapData.lat, nextProps.mapData.long),
       destination: new google.maps.LatLng(nextProps.mapData.lat, nextProps.mapData.long),
@@ -31,8 +32,25 @@ export default class MapContainer extends Component {
       error: false
     })
     this.fetchPlaces(nextProps)
-    console.log('receiving props')
+    console.log('receiving props', nextProps)
+  } else {
+    console.log('do not update')
   }
+  }
+
+  // updateMap = () {
+  //   if (this.props.mapData.lat !== '') {
+  //     this.setState({
+  //       origin: new google.maps.LatLng(nextProps.mapData.lat, nextProps.mapData.long),
+  //       destination: new google.maps.LatLng(nextProps.mapData.lat, nextProps.mapData.long),
+  //       zoom: nextProps.mapData.zoom,
+  //       markers: [],
+  //       waypoints: [],
+  //       directions: null,
+  //       error: false
+  //     })
+  //   }
+  // }
 
   fetchPlaces = locationData => {
     var loc = new google.maps.LatLng(locationData.mapData.lat, locationData.mapData.long)
@@ -46,7 +64,7 @@ export default class MapContainer extends Component {
       radius: '500',
       keyword: 'dog'
     }, this.setMarkers)
-    // this.setHomeMarker(map)
+    console.log('location-data')
   }
 
   setMarkers = (results, status) => {
@@ -64,13 +82,19 @@ export default class MapContainer extends Component {
         this.setState({
           markers: markerList
         })
-        console.log('setState: markers')
+        console.log('places service status ok')
     } else {
         this.setState({
           error: true
         })
       console.error(`error fetching places ${results}`)
     }
+    this.sendPlaceData(results)
+    console.log('markers', this.state.markers)
+  }
+
+  sendPlaceData = (placeData) => {
+    setTimeout(this.props.passUpPlaces(placeData), 1000)
   }
 
   handleMarkerClick = (targetMarker) => {
@@ -142,9 +166,9 @@ export default class MapContainer extends Component {
       })
     })
   }
-  //
-  // componentShouldUpdate = (nextProps, nextState) => {
-  //
+  // 
+  // shouldComponentUpdate = (nextProps) => {
+  //   return nextProps.mapData.lat !== this.props.mapData.lat
   // }
   //
   // componentDidUpdate = ()
@@ -163,7 +187,7 @@ export default class MapContainer extends Component {
         this.setState({
           directions: result
           })
-        console.log(result)
+        console.log('hi', result)
         // console.log(result.routes[0].legs)
       } else {
         console.error(`error fetching directions ${result}`)
@@ -172,7 +196,7 @@ export default class MapContainer extends Component {
 }
 
   render() {
-    console.log('render', this.state.waypoints)
+    console.log('render', this.state.markers)
     return (
       <div>
         <GoogleDirectionsMap
