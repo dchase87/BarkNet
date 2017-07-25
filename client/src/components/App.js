@@ -13,11 +13,7 @@ export default class App extends Component {
     return (
       <Router>
         <div>
-          <Route path='/' component={Header} />
-          <Route path='/signin' component={Signin} />
-          <Route path='/signout' component={Signout} />
-          <Route path='/signup' component={Signup} />
-          <Route path='/feature' component={RequireAuth(Feature)} />
+
           <Route exact path='/map' component={MapPageContainer} />
         </div>
       </Router>

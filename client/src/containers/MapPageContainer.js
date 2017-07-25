@@ -39,16 +39,16 @@ export default class MapPageContainer extends React.Component {
   render () {
     return (
       <Container>
-        <Grid divided padded celled>
+        <Grid divided celled>
           <Grid.Column width={4}>
             <Grid.Row>
               <AddressForm passUpLocation={this.setNewMap} />
             </Grid.Row>
               <Grid.Row>
                 <Container>
-                  <PlacesListContainer places={this.state.places}/>
+                  <PlacesListContainer places={this.state.places} location={this.state.location} />
                 </Container>
-              </Grid.Row>}
+              </Grid.Row>
           </Grid.Column>
           <Grid.Column width={12}>
             <MapContainer mapData={this.state.location} passUpPlaces={this.setPlaces} />

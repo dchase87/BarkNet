@@ -36,21 +36,7 @@ export default class MapContainer extends Component {
   } else {
     console.log('do not update')
   }
-  }
-
-  // updateMap = () {
-  //   if (this.props.mapData.lat !== '') {
-  //     this.setState({
-  //       origin: new google.maps.LatLng(nextProps.mapData.lat, nextProps.mapData.long),
-  //       destination: new google.maps.LatLng(nextProps.mapData.lat, nextProps.mapData.long),
-  //       zoom: nextProps.mapData.zoom,
-  //       markers: [],
-  //       waypoints: [],
-  //       directions: null,
-  //       error: false
-  //     })
-  //   }
-  // }
+}
 
   fetchPlaces = locationData => {
     var loc = new google.maps.LatLng(locationData.mapData.lat, locationData.mapData.long)
@@ -94,7 +80,7 @@ export default class MapContainer extends Component {
   }
 
   sendPlaceData = (placeData) => {
-    setTimeout(this.props.passUpPlaces(placeData), 1000)
+    this.props.passUpPlaces(placeData)
   }
 
   handleMarkerClick = (targetMarker) => {
@@ -166,7 +152,7 @@ export default class MapContainer extends Component {
       })
     })
   }
-  // 
+  //
   // shouldComponentUpdate = (nextProps) => {
   //   return nextProps.mapData.lat !== this.props.mapData.lat
   // }
