@@ -41,22 +41,30 @@ export default class PlacesContainer extends React.Component {
     this.props.toggleBounce(this.props.place.vicinity)
   }
 
+  handleButtonClick = (e) => {
+
+  }
+
   render () {
-    console.log('place', this.state.placeData)
     return (
       <Card.Group>
         <Card
           link
-          onClick={this.handleClick}
           >
-          <Card.Content>
+          <Card.Content onClick={this.handleClick}>
             <Card.Header>
               {this.props.place.name}
             </Card.Header>
             <Card.Meta>
               {this.props.place.vicinity}
             </Card.Meta>
+            <Card.Meta>
+              <a href={this.state.placeData.website} target="_blank" >{this.state.placeData.website}</a>
+            </Card.Meta>
           </Card.Content>
+          <Button onClick={this.handleButtonClick} content='See Photos'>
+
+          </Button>
         </Card>
       </Card.Group>
     )
