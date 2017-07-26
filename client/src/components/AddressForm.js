@@ -44,7 +44,7 @@ export default class AddressForm extends React.Component {
 
   render () {
     return (
-      <Segment padded>
+      <Segment padded raised>
         <Form onSubmit={this.handleSubmit}>
           <Form.Field>
             <Header>Address: </Header>

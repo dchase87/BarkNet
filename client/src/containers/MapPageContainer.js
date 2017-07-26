@@ -14,8 +14,8 @@ export default class MapPageContainer extends React.Component {
       zoom: 13
     },
     places: [],
-    showPlaces: false
-    // waypoint: {}
+    showPlaces: false,
+    placeData: ''
   }
 
   setNewMap = (locationData) => {
@@ -38,15 +38,11 @@ export default class MapPageContainer extends React.Component {
     })
   }
 
-  // passDownWaypoint = (placeData) => {
-  //   var waypoint = {
-  //     location: new google.maps.LatLng(placeData.geometry.location.lat(), placeData.geometry.location.lng()),
-  //     stopover: true
-  //   }
-  //   this.setState({
-  //     waypoint: waypoint
-  //   })
-  // }
+  passDownPlaceData = (placeData) => {
+    this.setState({
+      placeData: placeData
+    })
+  }
 
   render () {
     return (
@@ -61,7 +57,7 @@ export default class MapPageContainer extends React.Component {
                   <PlacesListContainer
                     places={this.state.places}
                     location={this.state.location}
-                    // passUpWaypoint={this.passDownWaypoint}
+                    passUpPlaceData={this.passDownPlaceData}
                   />
                 </Container>
               </Grid.Row>
@@ -70,7 +66,7 @@ export default class MapPageContainer extends React.Component {
             <MapContainer
               mapData={this.state.location}
               passUpPlaces={this.setPlaces}
-              // waypoint={this.state.waypoint}
+              placeData={this.state.placeData}
             />
           </Grid.Column>
         </Grid>

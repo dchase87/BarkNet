@@ -27,12 +27,21 @@ const GoogleDirectionsMap = withGoogleMap(props => (
       const onCloseClick = () => props.onCloseClick(marker)
       const onAddClick = () => props.onAddClick(marker)
       const onRemoveClick = () => props.onRemoveClick(marker)
+      const toggleBounce = () => {
+        if (props.placeData === '') {
+          return google.maps.Animation.DROP
+        } else if (marker.location === props.placeData) {
+          return google.maps.Animation.BOUNCE
+        } else {
+          return null
+        }
+      }
 
       return (
         <Marker
           key={index}
           position={{ lat: marker.lat, lng: marker.long }}
-          animation={google.maps.Animation.DROP}
+          animation={toggleBounce()}
           onClick={onClick}
         >
           {marker.showInfo && (
@@ -51,7 +60,7 @@ const GoogleDirectionsMap = withGoogleMap(props => (
     })}
 
 
-    {props.waypoints.length > 0 && <DirectionsRenderer directions={props.directions} />}
+    {props.waypoints.length > 0 && <DirectionsRenderer directions={props.directions} draggable />}
   </GoogleMap>
 ))
 

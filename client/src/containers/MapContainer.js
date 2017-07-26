@@ -19,7 +19,8 @@ export default class MapContainer extends Component {
     destination: null,
     directions: null,
     zoom: 13,
-    error: false
+    error: false,
+    placeData: ''
   }
 
   componentWillReceiveProps = nextProps => {
@@ -34,18 +35,11 @@ export default class MapContainer extends Component {
       error: false
     })
     this.fetchPlaces(nextProps)
-  // } else if (this.state.waypoints.includes(nextProps.waypoint)) {
-  //     this.setState({
-  //       waypoints: this.state.waypoints.filter(w => w !== nextProps.waypoint)
-  //     })
-  //     console.log('do not update')
-  // } else if (!this.state.waypoints.includes(nextProps.waypoint) && nextProps.waypoint.stopover) {
-  //   this.setState({
-  //     waypoints: [...this.state.waypoints, nextProps.waypoint]
-  //   })
-} else {
-  console.log('do not update')
-}
+    } else {
+      this.setState({
+        placeData: nextProps.placeData
+      })
+    }
 }
 
   fetchPlaces = locationData => {
@@ -190,6 +184,8 @@ export default class MapContainer extends Component {
 
   render() {
     console.log('render', this.state.directions)
+    console.log('placeData', this.state.placeData)
+    console.log('marker', this.state.markers)
     return (
       <div>
         <GoogleDirectionsMap
@@ -209,6 +205,7 @@ export default class MapContainer extends Component {
           onAddClick={this.handleAddClick}
           onRemoveClick={this.handleRemoveClick}
           directions={this.state.directions}
+          placeData={this.state.placeData}
         />
         {this.state.directions &&
         <Card.Group itemsPerRow={2}>
