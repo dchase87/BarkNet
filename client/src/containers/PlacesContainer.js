@@ -38,7 +38,7 @@ export default class PlacesContainer extends React.Component {
   }
 
   handleClick = (e) => {
-    this.props.toggleBounce(this.state.placeData.vicinity)
+    this.props.toggleBounce(this.props.place.vicinity)
   }
 
   render () {

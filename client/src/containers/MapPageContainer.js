@@ -25,7 +25,6 @@ export default class MapPageContainer extends React.Component {
         long: locationData.location.long,
         address: locationData.address,
         zoom: 14
-        // waypoint: {}
       }
     })
   }

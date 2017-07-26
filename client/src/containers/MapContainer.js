@@ -25,17 +25,18 @@ export default class MapContainer extends Component {
 
   componentWillReceiveProps = nextProps => {
     if (nextProps.mapData.lat !== this.props.mapData.lat) {
-    this.setState({
-      origin: new google.maps.LatLng(nextProps.mapData.lat, nextProps.mapData.long),
-      destination: new google.maps.LatLng(nextProps.mapData.lat, nextProps.mapData.long),
-      zoom: nextProps.mapData.zoom,
-      markers: [],
-      waypoints: [],
-      directions: null,
-      error: false
-    })
-    this.fetchPlaces(nextProps)
-    } else {
+      this.setState({
+        origin: new google.maps.LatLng(nextProps.mapData.lat, nextProps.mapData.long),
+        destination: new google.maps.LatLng(nextProps.mapData.lat, nextProps.mapData.long),
+        zoom: nextProps.mapData.zoom,
+        markers: [],
+        waypoints: [],
+        directions: null,
+        error: false,
+        placeData: ''
+      })
+      this.fetchPlaces(nextProps)
+    } else if (nextProps.placeData !== this.props.placeData) {
       this.setState({
         placeData: nextProps.placeData
       })
