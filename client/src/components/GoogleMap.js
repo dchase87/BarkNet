@@ -4,6 +4,8 @@ import {
   Component
 } from 'react'
 
+import image from '../assets/images/paw_print.png'
+
 import {
   withGoogleMap,
   GoogleMap,
@@ -43,6 +45,7 @@ const GoogleDirectionsMap = withGoogleMap(props => (
           position={{ lat: marker.lat, lng: marker.long }}
           animation={toggleBounce()}
           onClick={onClick}
+          icon={image}
         >
           {marker.showInfo && (
             <InfoWindow onCloseClick={onCloseClick}>

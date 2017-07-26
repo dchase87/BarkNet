@@ -47,7 +47,6 @@ export default class PlacesContainer extends React.Component {
       <Card.Group>
         <Card
           link
-          // href={this.state.placeData.website}
           onClick={this.handleClick}
           >
           <Card.Content>
@@ -58,7 +57,6 @@ export default class PlacesContainer extends React.Component {
               {this.props.place.vicinity}
             </Card.Meta>
           </Card.Content>
-
         </Card>
       </Card.Group>
     )
