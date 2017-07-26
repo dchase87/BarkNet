@@ -93,8 +93,12 @@ export default class MapContainer extends Component {
             ...marker,
             showInfo: true
           }
+        } else {
+          return {
+          ...marker,
+          showInfo: false
         }
-        return marker
+        }
       })
     })
   }
