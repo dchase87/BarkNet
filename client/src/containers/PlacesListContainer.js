@@ -9,15 +9,22 @@ export default class PlacesListContainer extends React.Component {
     places: []
   }
 
+  // sendWaypoint = (placeData) => {
+  //   this.props.passUpWaypoint(placeData)
+  // }
+
   render () {
-    console.log('places-render', this.props.places)
     return (
       <Segment padded>
         <Header dividing>
           Places:
         </Header>
         {this.props.places ? this.props.places.map((place, index) => {
-          return <Place place={place} location={this.props.location} />
+          return <Place
+            place={place}
+            location={this.props.location}
+            // addToRoute={this.sendWaypoint}
+          />
         })
         : <h3>Enter an address to see cool dog spots!</h3>}
       </Segment>

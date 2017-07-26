@@ -4,6 +4,8 @@ import {
   Component,
 } from "react"
 
+import { Card, Icon } from 'semantic-ui-react'
+
 import GoogleDirectionsMap from '../components/GoogleMap'
 /*
  * Add <script src="https://maps.googleapis.com/maps/api/js"></script> to your HTML to provide google.maps reference
@@ -32,25 +34,32 @@ export default class MapContainer extends Component {
       error: false
     })
     this.fetchPlaces(nextProps)
-    console.log('receiving props', nextProps)
-  } else {
-    console.log('do not update')
-  }
+  // } else if (this.state.waypoints.includes(nextProps.waypoint)) {
+  //     this.setState({
+  //       waypoints: this.state.waypoints.filter(w => w !== nextProps.waypoint)
+  //     })
+  //     console.log('do not update')
+  // } else if (!this.state.waypoints.includes(nextProps.waypoint) && nextProps.waypoint.stopover) {
+  //   this.setState({
+  //     waypoints: [...this.state.waypoints, nextProps.waypoint]
+  //   })
+} else {
+  console.log('do not update')
+}
 }
 
   fetchPlaces = locationData => {
     var loc = new google.maps.LatLng(locationData.mapData.lat, locationData.mapData.long)
     var map = new google.maps.Map(document.getElementById('map'), {
       center: loc,
-      zoom: 15
+      zoom: 13
     })
     const service = new google.maps.places.PlacesService(map)
     service.nearbySearch({
       location: loc,
-      radius: '500',
-      keyword: 'dog'
+      radius: '1500',
+      keyword: 'dog run park'
     }, this.setMarkers)
-    console.log('location-data')
   }
 
   setMarkers = (results, status) => {
@@ -68,7 +77,6 @@ export default class MapContainer extends Component {
         this.setState({
           markers: markerList
         })
-        console.log('places service status ok')
     } else {
         this.setState({
           error: true
@@ -76,7 +84,6 @@ export default class MapContainer extends Component {
       console.error(`error fetching places ${results}`)
     }
     this.sendPlaceData(results)
-    console.log('markers', this.state.markers)
   }
 
   sendPlaceData = (placeData) => {
@@ -102,19 +109,19 @@ export default class MapContainer extends Component {
       location: new google.maps.LatLng(targetMarker.lat, targetMarker.long),
       stopover: true
     }
-    this.setState({
-      ...this.state,
-      waypoints: [...this.state.waypoints, waypoint],
-      markers: this.state.markers.map(marker => {
-        if (marker === targetMarker) {
-          return {
-            ...marker,
-            added: true
+      this.setState({
+        ...this.state,
+        waypoints: [...this.state.waypoints, waypoint],
+        markers: this.state.markers.map(marker => {
+          if (marker === targetMarker) {
+            return {
+              ...marker,
+              added: true
+            }
           }
-        }
-        return marker
+          return marker
+        })
       })
-    })
     setTimeout(this.setDirections, 1000)
     console.log('adding waypoint', this.state.waypoints)
   }
@@ -174,7 +181,7 @@ export default class MapContainer extends Component {
           directions: result
           })
         console.log('hi', result)
-        // console.log(result.routes[0].legs)
+        console.log(result.routes[0].legs[0].distance)
       } else {
         console.error(`error fetching directions ${result}`)
       }
@@ -182,7 +189,7 @@ export default class MapContainer extends Component {
 }
 
   render() {
-    console.log('render', this.state.markers)
+    console.log('render', this.state.directions)
     return (
       <div>
         <GoogleDirectionsMap
@@ -203,7 +210,22 @@ export default class MapContainer extends Component {
           onRemoveClick={this.handleRemoveClick}
           directions={this.state.directions}
         />
-        {this.state.error === true && <h3>No Cool Dog Stuff in this area :(</h3>}
+        {this.state.directions &&
+        <Card.Group itemsPerRow={2}>
+          <Card fluid>
+            <Icon size='large' name='paw'/>
+            <Card.Header>{this.state.directions.routes[0].legs.map(leg => {
+                return leg.distance.text.split(' ')[0] * 1}).reduce((acc, val) => acc + val)} Miles
+            </Card.Header>
+          </Card>
+          <Card fluid>
+            <Icon size='large' name='time' />
+              <Card.Header>{this.state.directions.routes[0].legs.map(leg => {
+                return leg.duration.text.split(' ')[0] * 1}).reduce((acc, val) => acc + val)} Minutes
+            </Card.Header>
+          </Card>
+        </Card.Group>
+        }
       </div>
     );
   }

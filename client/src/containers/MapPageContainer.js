@@ -1,3 +1,4 @@
+/* global google */
 import React from 'react'
 import AddressForm from '../components/AddressForm'
 import MapContainer from './MapContainer'
@@ -14,6 +15,7 @@ export default class MapPageContainer extends React.Component {
     },
     places: [],
     showPlaces: false
+    // waypoint: {}
   }
 
   setNewMap = (locationData) => {
@@ -22,7 +24,8 @@ export default class MapPageContainer extends React.Component {
         lat: locationData.location.lat,
         long: locationData.location.long,
         address: locationData.address,
-        zoom: 15
+        zoom: 14
+        // waypoint: {}
       }
     })
   }
@@ -33,8 +36,17 @@ export default class MapPageContainer extends React.Component {
       places: placeData,
       showPlaces: true
     })
-    console.log('dave', this.state.places)
   }
+
+  // passDownWaypoint = (placeData) => {
+  //   var waypoint = {
+  //     location: new google.maps.LatLng(placeData.geometry.location.lat(), placeData.geometry.location.lng()),
+  //     stopover: true
+  //   }
+  //   this.setState({
+  //     waypoint: waypoint
+  //   })
+  // }
 
   render () {
     return (
@@ -46,12 +58,20 @@ export default class MapPageContainer extends React.Component {
             </Grid.Row>
               <Grid.Row>
                 <Container>
-                  <PlacesListContainer places={this.state.places} location={this.state.location} />
+                  <PlacesListContainer
+                    places={this.state.places}
+                    location={this.state.location}
+                    // passUpWaypoint={this.passDownWaypoint}
+                  />
                 </Container>
               </Grid.Row>
           </Grid.Column>
           <Grid.Column width={12}>
-            <MapContainer mapData={this.state.location} passUpPlaces={this.setPlaces} />
+            <MapContainer
+              mapData={this.state.location}
+              passUpPlaces={this.setPlaces}
+              // waypoint={this.state.waypoint}
+            />
           </Grid.Column>
         </Grid>
       </Container>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Segment } from 'semantic-ui-react'
+import { Form, Segment, Header } from 'semantic-ui-react'
 const geocoder = require('google-geocoder')
 
 export default class AddressForm extends React.Component {
@@ -47,7 +47,7 @@ export default class AddressForm extends React.Component {
       <Segment padded>
         <Form onSubmit={this.handleSubmit}>
           <Form.Field>
-            <label>Address: </label>
+            <Header>Address: </Header>
             <input required placeholder='address' name='address' value={this.state.address} onChange={this.handleChange} />
           </Form.Field>
           <Form.Button content='Submit' color='black' />

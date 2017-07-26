@@ -1,28 +1,25 @@
 /* global google */
 import React from 'react'
-import { Segment } from 'semantic-ui-react'
+import { Card, Image } from 'semantic-ui-react'
 
 export default class Place extends React.Component {
   state = {
-    placeData: {}
+    placeData: {},
+    clicked: false,
   }
 
   componentWillMount = nextProps => {
       this.fetchPlaceInfo()
-      console.log('poop', this.props.place)
   }
 
   fetchPlaceInfo = () => {
-    // if (this.)
     var loc = new google.maps.LatLng(this.props.location.lat, this.props.location.long)
     var map = new google.maps.Map(document.getElementById('map'), {
       center: loc,
       zoom: 15
     })
-    console.log('dook', this.props.place.place_id)
     const service = new google.maps.places.PlacesService(map)
     service.getDetails({ placeId: this.props.place.place_id }, this.gatherUpResponses)
-    console.log('fetchy')
   }
 
   gatherUpResponses = (place, status) => {
@@ -40,12 +37,29 @@ export default class Place extends React.Component {
     })
   }
 
+  // handleClick = (e) => {
+  //   this.props.addToRoute(this.state.placeData)
+  // }
+
   render () {
+    console.log('place', this.state.placeData)
     return (
-      <Segment raised>
-        <a href={this.state.placeData.website}>{this.props.place.name}</a>
-        <div>{this.props.place.vicinity}</div>
-      </Segment>
+      <Card.Group>
+        <Card
+          href={this.state.placeData.website}
+          // onClick={this.handleClick}
+          >
+          <Card.Content>
+            <Card.Header>
+              {this.props.place.name}
+            </Card.Header>
+            <Card.Meta>
+              {this.props.place.vicinity}
+            </Card.Meta>
+          </Card.Content>
+
+        </Card>
+      </Card.Group>
     )
   }
 }
