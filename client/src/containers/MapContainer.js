@@ -5,7 +5,7 @@ import {
 } from "react"
 
 import { Card, Icon } from 'semantic-ui-react'
-
+import Poop from '../assets/images/Poop-512.png'
 import GoogleDirectionsMap from '../components/GoogleMap'
 /*
  * Add <script src="https://maps.googleapis.com/maps/api/js"></script> to your HTML to provide google.maps reference
@@ -55,7 +55,22 @@ export default class MapContainer extends Component {
       radius: '1500',
       keyword: 'dog run park'
     }, this.setMarkers)
+    // this.addDrawingManager(map)
   }
+
+  // addDrawingManager = (map) => {
+  //   var drawingManager = new google.maps.drawing.DrawingManager({
+  //     drawingMode: google.maps.drawing.OverlayType.MARKER,
+  //     drawingControl: true,
+  //     drawingControlOptions: {
+  //       position: google.maps.ControlPosition.TOP_CENTER,
+  //       drawingModes: ['marker']
+  //     },
+  //     markerOptions: {icon: Poop}
+  //   })
+  //   drawingManager.setMap(map)
+  //   console.log('drawing-manager', map)
+  // }
 
   setMarkers = (results, status) => {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -121,8 +136,7 @@ export default class MapContainer extends Component {
           return marker
         })
       })
-    setTimeout(this.setDirections, 1000)
-    console.log('adding waypoint', this.state.waypoints)
+    setTimeout(this.setDirections, 700)
   }
 
   handleRemoveClick = (targetMarker) => {
@@ -141,8 +155,7 @@ export default class MapContainer extends Component {
         return marker
       })
     })
-    setTimeout(this.setDirections, 1000)
-    console.log('removing waypoint', this.state.waypoints)
+    setTimeout(this.setDirections, 700)
 }
 
   handleCloseClick = (targetMarker) => {
@@ -158,12 +171,6 @@ export default class MapContainer extends Component {
       })
     })
   }
-  //
-  // shouldComponentUpdate = (nextProps) => {
-  //   return nextProps.mapData.lat !== this.props.mapData.lat
-  // }
-  //
-  // componentDidUpdate = ()
 
   setDirections = () => {
     const DirectionsService = new google.maps.DirectionsService()
@@ -179,8 +186,6 @@ export default class MapContainer extends Component {
         this.setState({
           directions: result
           })
-        console.log('hi', result)
-        console.log(result.routes[0].legs[0].distance)
       } else {
         console.error(`error fetching directions ${result}`)
       }
@@ -188,9 +193,6 @@ export default class MapContainer extends Component {
 }
 
   render() {
-    console.log('render', this.state.directions)
-    console.log('placeData', this.state.placeData)
-    console.log('marker', this.state.markers)
     return (
       <div>
         <GoogleDirectionsMap

@@ -1,7 +1,6 @@
-/* global google */
 import React from 'react'
 import PlacesContainer from '../containers/PlacesContainer'
-import { Segment, Container, Header } from 'semantic-ui-react'
+import { Segment, Header } from 'semantic-ui-react'
 
 export default class PlacesListContainer extends React.Component {
   state = {
@@ -21,6 +20,7 @@ export default class PlacesListContainer extends React.Component {
         </Header>
         {this.props.places ? this.props.places.map((place, index) => {
           return <PlacesContainer
+            key={index}
             place={place}
             location={this.props.location}
             toggleBounce={this.toggleBounce}

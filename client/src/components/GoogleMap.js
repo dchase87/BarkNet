@@ -1,10 +1,8 @@
 /* global google */
-import {
-  default as React,
-  Component
-} from 'react'
+import React from 'react'
 
 import image from '../assets/images/paw_print.png'
+import poop from '../assets/images/Poop-512.png'
 
 import {
   withGoogleMap,
@@ -14,13 +12,27 @@ import {
   InfoWindow
 } from 'react-google-maps'
 
+import DrawingManager from 'react-google-maps/lib/drawing/DrawingManager'
+
 const GoogleDirectionsMap = withGoogleMap(props => (
   <GoogleMap
     zoom={props.zoom}
     center={props.center}
   >
+    <DrawingManager
+      drawingMode= {google.maps.drawing.OverlayType.MARKER}
+      defaultOptions={{
+        drawingControl: true,
+        drawingControlOptions: {
+          position: google.maps.ControlPosition.TOP_CENTER,
+          drawingModes: ['marker'],
+          markerOptions: {icon: 'https://cdn0.iconfinder.com/data/icons/crime-and-protection-icons/110/Poop-512.png'}
+      }
+    }}
+    />
+
     {props.center.lat() !== 40.728087 && <Marker
-      position={{ lat: props.center.lat(), lng: props.center.lng()}}
+      position={{ lat: props.center.lat(), lng: props.center.lng() }}
       animation={google.maps.Animation.DROP}
     />}
 
@@ -30,11 +42,12 @@ const GoogleDirectionsMap = withGoogleMap(props => (
       const onAddClick = () => props.onAddClick(marker)
       const onRemoveClick = () => props.onRemoveClick(marker)
       const toggleBounce = () => {
-        if (props.placeData === '') {
-          return google.maps.Animation.DROP
-        } else if (marker.location === props.placeData) {
-          return google.maps.Animation.BOUNCE
-        } else {
+        switch(props.placeData) {
+          case '':
+            return google.maps.Animation.DROP
+          case marker.location:
+            return google.maps.Animation.BOUNCE
+          default:
           return null
         }
       }

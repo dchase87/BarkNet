@@ -26,7 +26,6 @@ export default class PlacesContainer extends React.Component {
   gatherUpResponses = (place, status) => {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       this.storePlace(place)
-      console.log('fetch works', place)
     } else {
       console.error(`error fetching places ${status}`)
     }
@@ -40,10 +39,6 @@ export default class PlacesContainer extends React.Component {
 
   handleClick = (e) => {
     this.props.toggleBounce(this.props.place.vicinity)
-  }
-
-  handleButtonClick = (e) => {
-
   }
 
   render () {

@@ -1,4 +1,3 @@
-/* global google */
 import React from 'react'
 import AddressForm from '../components/AddressForm'
 import MapContainer from './MapContainer'
