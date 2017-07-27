@@ -1,6 +1,7 @@
 /* global google */
 import React from 'react'
-import { Card, Image, Button } from 'semantic-ui-react'
+import ModalCarousel from '../components/ModalCarousel'
+import { Card, Icon } from 'semantic-ui-react'
 
 export default class PlacesContainer extends React.Component {
   state = {
@@ -53,7 +54,7 @@ export default class PlacesContainer extends React.Component {
           >
           <Card.Content onClick={this.handleClick}>
             <Card.Header>
-              {this.props.place.name}
+              {this.props.place.name}<div></div><Icon size='small' name='search' />
             </Card.Header>
             <Card.Meta>
               {this.props.place.vicinity}
@@ -62,9 +63,7 @@ export default class PlacesContainer extends React.Component {
               <a href={this.state.placeData.website} target="_blank" >{this.state.placeData.website}</a>
             </Card.Meta>
           </Card.Content>
-          <Button onClick={this.handleButtonClick} content='See Photos'>
-
-          </Button>
+          <ModalCarousel placeData={this.state.placeData} />
         </Card>
       </Card.Group>
     )
