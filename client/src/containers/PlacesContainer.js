@@ -29,29 +29,27 @@ export default class PlacesContainer extends React.Component {
   }
 
   handleClick = (e) => {
-    this.props.toggleBounce(this.props.place.vicinity)
+    this.props.toggleBounce(this.props.place.name)
   }
 
   render () {
     return (
-      <Card.Group>
-        <Card
-          link
-          >
-          <Card.Content onClick={this.handleClick}>
-            <Card.Header>
-              {this.props.place.name}<div></div><Icon size='small' name='search' />
-            </Card.Header>
-            <Card.Meta>
-              {this.props.place.vicinity}
-            </Card.Meta>
-            <Card.Meta>
-              <a href={this.state.placeData.website} target="_blank" >{this.state.placeData.website}</a>
-            </Card.Meta>
-          </Card.Content>
-          <ModalCarousel placeData={this.state.placeData} />
-        </Card>
-      </Card.Group>
+      <Card
+        link
+        >
+        <Card.Content onClick={this.handleClick}>
+          <Card.Header>
+            {this.props.place.name}<div></div><Icon size='small' name='search' />
+          </Card.Header>
+          <Card.Meta>
+            {this.props.place.vicinity}
+          </Card.Meta>
+          <Card.Meta>
+            <a href={this.state.placeData.website} target="_blank" >{this.state.placeData.website}</a>
+          </Card.Meta>
+        </Card.Content>
+        <ModalCarousel placeData={this.state.placeData} />
+      </Card>
     )
   }
 }

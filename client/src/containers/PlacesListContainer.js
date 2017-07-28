@@ -1,6 +1,6 @@
 import React from 'react'
 import PlacesContainer from '../containers/PlacesContainer'
-import { Segment, Header } from 'semantic-ui-react'
+import { Segment, Header, Card } from 'semantic-ui-react'
 
 export default class PlacesListContainer extends React.Component {
   state = {
@@ -8,8 +8,8 @@ export default class PlacesListContainer extends React.Component {
     places: []
   }
 
-  toggleBounce = (placeData) => {
-    this.props.passUpPlaceData(placeData)
+  toggleBounce = (placeName) => {
+    this.props.passUpPlaceData(placeName)
   }
 
   render () {
@@ -18,6 +18,7 @@ export default class PlacesListContainer extends React.Component {
         <Header dividing>
           Places:
         </Header>
+        <Card.Group>
         {this.props.places ? this.props.places.map((place, index) => {
           return <PlacesContainer
             key={index}
@@ -27,6 +28,7 @@ export default class PlacesListContainer extends React.Component {
           />
         })
         : <h3>Enter an address to see cool dog spots!</h3>}
+        </Card.Group>
       </Segment>
     )
   }

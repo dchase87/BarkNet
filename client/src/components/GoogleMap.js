@@ -45,10 +45,10 @@ const GoogleDirectionsMap = withGoogleMap(props => (
       const onAddClick = () => props.onAddClick(marker)
       const onRemoveClick = () => props.onRemoveClick(marker)
       const toggleBounce = () => {
-        switch(props.placeData) {
+        switch(props.placeName) {
           case '':
             return google.maps.Animation.DROP
-          case marker.location:
+          case marker.name:
             return google.maps.Animation.BOUNCE
           default:
           return null

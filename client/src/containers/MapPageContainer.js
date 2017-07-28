@@ -14,7 +14,7 @@ export default class MapPageContainer extends React.Component {
     },
     places: [],
     showPlaces: false,
-    placeData: ''
+    placeName: ''
   }
 
   setNewMap = (locationData) => {
@@ -28,17 +28,17 @@ export default class MapPageContainer extends React.Component {
     })
   }
 
-  setPlaces = (placeData) => {
+  setPlaces = (places) => {
     this.setState({
       ...this.state,
-      places: placeData,
+      places: places,
       showPlaces: true
     })
   }
 
-  passDownPlaceData = (placeData) => {
+  passDownPlaceData = (placeName) => {
     this.setState({
-      placeData: placeData
+      placeName: placeName
     })
   }
 
@@ -63,7 +63,7 @@ export default class MapPageContainer extends React.Component {
             <MapContainer
               mapData={this.state.location}
               passUpPlaces={this.setPlaces}
-              placeData={this.state.placeData}
+              placeName={this.state.placeName}
             />
           </Grid.Column>
         </Grid>

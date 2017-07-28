@@ -21,7 +21,7 @@ export default class MapContainer extends Component {
     directions: null,
     zoom: 13,
     error: false,
-    placeData: ''
+    placeName: ''
   }
 
   componentWillReceiveProps = nextProps => {
@@ -34,12 +34,12 @@ export default class MapContainer extends Component {
         waypoints: [],
         directions: null,
         error: false,
-        placeData: ''
+        placeName: ''
       })
       MarkersAdapter.getMarkers(nextProps, this.setMarkers)
-    } else if (nextProps.placeData !== this.props.placeData) {
+    } else if (nextProps.placeName !== this.props.placeName) {
       this.setState({
-        placeData: nextProps.placeData
+        placeName: nextProps.placeName
       })
     }
 }
@@ -184,7 +184,7 @@ export default class MapContainer extends Component {
           onAddClick={this.handleAddClick}
           onRemoveClick={this.handleRemoveClick}
           directions={this.state.directions}
-          placeData={this.state.placeData}
+          placeName={this.state.placeName}
         />
         {this.state.directions &&
         <Card.Group itemsPerRow={2}>
