@@ -2,7 +2,7 @@
 import React from 'react'
 
 import image from '../assets/images/paw_print.png'
-import poop from '../assets/images/Poop-512.png'
+import poop from '../assets/images/poop.png'
 
 import {
   withGoogleMap,
@@ -19,17 +19,20 @@ const GoogleDirectionsMap = withGoogleMap(props => (
     zoom={props.zoom}
     center={props.center}
   >
-    <DrawingManager
+    {props.directions && <DrawingManager
       drawingMode= {google.maps.drawing.OverlayType.MARKER}
       defaultOptions={{
         drawingControl: true,
         drawingControlOptions: {
           position: google.maps.ControlPosition.TOP_CENTER,
-          drawingModes: ['marker'],
-          markerOptions: {icon: 'https://cdn0.iconfinder.com/data/icons/crime-and-protection-icons/110/Poop-512.png'}
-      }
+          drawingModes: ['marker']
+      },
+        markerOptions: {
+          icon: poop,
+          animation: google.maps.Animation.DROP
+        }
     }}
-    />
+  />}
 
     {props.center.lat() !== 40.728087 && <Marker
       position={{ lat: props.center.lat(), lng: props.center.lng() }}

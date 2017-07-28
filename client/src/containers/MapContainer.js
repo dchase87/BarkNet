@@ -7,6 +7,7 @@ import {
 import { Card, Icon } from 'semantic-ui-react'
 import Poop from '../assets/images/Poop-512.png'
 import GoogleDirectionsMap from '../components/GoogleMap'
+import MarkersAdapter from '../adapters/MarkersAdapter'
 /*
  * Add <script src="https://maps.googleapis.com/maps/api/js"></script> to your HTML to provide google.maps reference
  */
@@ -35,42 +36,13 @@ export default class MapContainer extends Component {
         error: false,
         placeData: ''
       })
-      this.fetchPlaces(nextProps)
+      MarkersAdapter.getMarkers(nextProps, this.setMarkers)
     } else if (nextProps.placeData !== this.props.placeData) {
       this.setState({
         placeData: nextProps.placeData
       })
     }
 }
-
-  fetchPlaces = locationData => {
-    var loc = new google.maps.LatLng(locationData.mapData.lat, locationData.mapData.long)
-    var map = new google.maps.Map(document.getElementById('map'), {
-      center: loc,
-      zoom: 13
-    })
-    const service = new google.maps.places.PlacesService(map)
-    service.nearbySearch({
-      location: loc,
-      radius: '1500',
-      keyword: 'dog run park'
-    }, this.setMarkers)
-    // this.addDrawingManager(map)
-  }
-
-  // addDrawingManager = (map) => {
-  //   var drawingManager = new google.maps.drawing.DrawingManager({
-  //     drawingMode: google.maps.drawing.OverlayType.MARKER,
-  //     drawingControl: true,
-  //     drawingControlOptions: {
-  //       position: google.maps.ControlPosition.TOP_CENTER,
-  //       drawingModes: ['marker']
-  //     },
-  //     markerOptions: {icon: Poop}
-  //   })
-  //   drawingManager.setMap(map)
-  //   console.log('drawing-manager', map)
-  // }
 
   setMarkers = (results, status) => {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
