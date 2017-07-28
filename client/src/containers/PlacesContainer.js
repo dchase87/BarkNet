@@ -2,6 +2,7 @@
 import React from 'react'
 import ModalCarousel from '../components/ModalCarousel'
 import { Card, Icon } from 'semantic-ui-react'
+import PlaceDetailsAdapter from '../adapters/PlaceDetailsAdapter'
 
 export default class PlacesContainer extends React.Component {
   state = {
@@ -9,18 +10,8 @@ export default class PlacesContainer extends React.Component {
     clicked: false,
   }
 
-  componentWillMount = nextProps => {
-      this.fetchPlaceInfo()
-  }
-
-  fetchPlaceInfo = () => {
-    var loc = new google.maps.LatLng(this.props.location.lat, this.props.location.long)
-    var map = new google.maps.Map(document.getElementById('map'), {
-      center: loc,
-      zoom: 15
-    })
-    const service = new google.maps.places.PlacesService(map)
-    service.getDetails({ placeId: this.props.place.place_id }, this.gatherUpResponses)
+  componentDidMount = () => {
+    PlaceDetailsAdapter.getPlaceDetails(this.props.place.place_id, this.props.location, this.gatherUpResponses)
   }
 
   gatherUpResponses = (place, status) => {
