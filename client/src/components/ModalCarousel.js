@@ -4,6 +4,9 @@ import { Carousel } from 'react-responsive-carousel'
 import '../carousel.css'
 
 export default class ModalCarousel extends React.Component {
+  componentDidMount = () => {
+    console.log('carousel mount')
+  }
 
   createPhotoArray = () => {
     const photos = this.props.placeData.photos
@@ -28,7 +31,7 @@ export default class ModalCarousel extends React.Component {
         )
       } else {
         return (
-          <Carousel showStatus={false} useKeyboardArrows infiniteLoop dynamicHeight swipeScrollTolerance={1} interval={3000} autoPlay showThumbs={false}>
+          <Carousel showStatus={false} useKeyboardArrows infiniteLoop dynamicHeight swipeScrollTolerance={1} interval={4000} autoPlay showThumbs={false}>
             <div key='1'>
               <img src='http://janfennellthedoglistener.com/static/cms/ConfusedDog.png' alt='Confused Dog' />
               <p className="legend">Woof, there are no photos for this place. Sorry!</p>

@@ -23,7 +23,7 @@ export default class MapPageContainer extends React.Component {
         lat: locationData.location.lat,
         long: locationData.location.long,
         address: locationData.address,
-        zoom: 14
+        zoom: 15
       }
     })
   }
@@ -34,6 +34,7 @@ export default class MapPageContainer extends React.Component {
       places: placeData,
       showPlaces: true
     })
+    console.log('receiving new places', this.state.places)
   }
 
   passDownPlaceData = (placeData) => {

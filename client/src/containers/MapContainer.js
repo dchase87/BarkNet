@@ -13,7 +13,7 @@ import GoogleDirectionsMap from '../components/GoogleMap'
 export default class MapContainer extends Component {
 
   state = {
-    origin: new google.maps.LatLng(40.728087, -73.995669), // NEED TO PASS IN START ADDRESS HERE THROUGH FORM
+    origin: new google.maps.LatLng(40.728087, -73.995669),
     waypoints: [],
     markers: [],
     destination: null,
@@ -47,30 +47,15 @@ export default class MapContainer extends Component {
     var loc = new google.maps.LatLng(locationData.mapData.lat, locationData.mapData.long)
     var map = new google.maps.Map(document.getElementById('map'), {
       center: loc,
-      zoom: 13
+      zoom: 15
     })
     const service = new google.maps.places.PlacesService(map)
     service.nearbySearch({
       location: loc,
-      radius: '1500',
+      radius: '1000',
       keyword: 'dog run park'
     }, this.setMarkers)
-    // this.addDrawingManager(map)
   }
-
-  // addDrawingManager = (map) => {
-  //   var drawingManager = new google.maps.drawing.DrawingManager({
-  //     drawingMode: google.maps.drawing.OverlayType.MARKER,
-  //     drawingControl: true,
-  //     drawingControlOptions: {
-  //       position: google.maps.ControlPosition.TOP_CENTER,
-  //       drawingModes: ['marker']
-  //     },
-  //     markerOptions: {icon: Poop}
-  //   })
-  //   drawingManager.setMap(map)
-  //   console.log('drawing-manager', map)
-  // }
 
   setMarkers = (results, status) => {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
