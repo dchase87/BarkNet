@@ -5,6 +5,10 @@ import '../carousel.css'
 
 export default class ModalCarousel extends React.Component {
 
+  // componentWillUnmount = () => {
+  //
+  // }
+
   createPhotoArray = () => {
     const photos = this.props.placeData.photos
       return photos.map(photo => {

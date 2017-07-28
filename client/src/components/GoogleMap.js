@@ -3,6 +3,7 @@ import React from 'react'
 
 import image from '../assets/images/paw_print.png'
 import poop from '../assets/images/poop.png'
+import pee from '../assets/images/pee.png'
 
 import {
   withGoogleMap,
@@ -19,7 +20,7 @@ const GoogleDirectionsMap = withGoogleMap(props => (
     zoom={props.zoom}
     center={props.center}
   >
-    {props.directions && <DrawingManager
+    {props.directions && props.poo && <DrawingManager
       drawingMode= {google.maps.drawing.OverlayType.MARKER}
       defaultOptions={{
         drawingControl: true,
@@ -29,10 +30,28 @@ const GoogleDirectionsMap = withGoogleMap(props => (
       },
         markerOptions: {
           icon: poop,
-          animation: google.maps.Animation.DROP
+          animation: google.maps.Animation.DROP,
+          draggable: true
         }
     }}
-  />}
+  />
+  }
+  {props.directions && props.pee && <DrawingManager
+    drawingMode= {google.maps.drawing.OverlayType.MARKER}
+    defaultOptions={{
+      drawingControl: true,
+      drawingControlOptions: {
+        position: google.maps.ControlPosition.TOP_CENTER,
+        drawingModes: ['marker']
+    },
+      markerOptions: {
+        icon: pee,
+        animation: google.maps.Animation.DROP,
+        draggable: true
+      }
+  }}
+/>
+}
 
     {props.center.lat() !== 40.728087 && <Marker
       position={{ lat: props.center.lat(), lng: props.center.lng() }}

@@ -4,7 +4,7 @@ import {
   Component,
 } from "react"
 
-import { Card, Icon } from 'semantic-ui-react'
+import { Card, Icon, Segment, Button } from 'semantic-ui-react'
 import Poop from '../assets/images/Poop-512.png'
 import GoogleDirectionsMap from '../components/GoogleMap'
 import MarkersAdapter from '../adapters/MarkersAdapter'
@@ -21,7 +21,11 @@ export default class MapContainer extends Component {
     directions: null,
     zoom: 13,
     error: false,
-    placeName: ''
+    placeName: '',
+    events: {
+      poo: false,
+      pee: false
+    }
   }
 
   componentWillReceiveProps = nextProps => {
@@ -108,7 +112,7 @@ export default class MapContainer extends Component {
           return marker
         })
       })
-    setTimeout(this.setDirections, 700)
+    setTimeout(this.setDirections, 1000)
   }
 
   handleRemoveClick = (targetMarker) => {
@@ -127,7 +131,7 @@ export default class MapContainer extends Component {
         return marker
       })
     })
-    setTimeout(this.setDirections, 700)
+    setTimeout(this.setDirections, 1000)
 }
 
   handleCloseClick = (targetMarker) => {
@@ -148,23 +152,43 @@ export default class MapContainer extends Component {
     const DirectionsService = new google.maps.DirectionsService()
 
     DirectionsService.route({
-      origin: this.state.origin,
-      destination: this.state.origin,
-      waypoints: this.state.waypoints,
-      travelMode: google.maps.TravelMode.WALKING,
-      optimizeWaypoints: true
-    }, (result, status) => {
+    origin: this.state.origin,
+    destination: this.state.origin,
+    waypoints: this.state.waypoints,
+    travelMode: google.maps.TravelMode.WALKING,
+    optimizeWaypoints: true
+  }, (result, status) => {
       if (status === google.maps.DirectionsStatus.OK) {
         this.setState({
           directions: result
           })
+          console.log(result)
       } else {
         console.error(`error fetching directions ${result}`)
       }
-  })
-}
+    })
+  }
+
+  handlePoo = () => {
+    this.setState({
+      events: {
+        poo: true,
+        pee: false
+      }
+    })
+  }
+
+  handlePee = () => {
+    this.setState({
+      events: {
+        pee: true,
+        poo: false
+      }
+    })
+  }
 
   render() {
+    console.log(this.state.events.poo)
     return (
       <div>
         <GoogleDirectionsMap
@@ -185,22 +209,28 @@ export default class MapContainer extends Component {
           onRemoveClick={this.handleRemoveClick}
           directions={this.state.directions}
           placeName={this.state.placeName}
+          poo={this.state.events.poo}
+          pee={this.state.events.pee}
         />
         {this.state.directions &&
-        <Card.Group itemsPerRow={2}>
-          <Card fluid>
-            <Icon size='large' name='paw'/>
-            <Card.Header>{this.state.directions.routes[0].legs.map(leg => {
-                return leg.distance.text.split(' ')[0] * 1}).reduce((acc, val) => acc + val)} Miles
-            </Card.Header>
-          </Card>
-          <Card fluid>
-            <Icon size='large' name='time' />
-              <Card.Header>{this.state.directions.routes[0].legs.map(leg => {
-                return leg.duration.text.split(' ')[0] * 1}).reduce((acc, val) => acc + val)} Minutes
-            </Card.Header>
-          </Card>
-        </Card.Group>
+          <Segment padded>
+            <Card.Group itemsPerRow={2}>
+              <Card fluid>
+                <Icon size='large' name='paw'/>
+                <Card.Header>{this.state.directions.routes[0].legs.map(leg => {
+                    return leg.distance.text.split(' ')[0] * 1}).reduce((acc, val) => acc + val)} Miles
+                </Card.Header>
+              </Card>
+              <Card fluid>
+                <Icon size='large' name='time' />
+                  <Card.Header>{this.state.directions.routes[0].legs.map(leg => {
+                    return leg.duration.text.split(' ')[0] * 1}).reduce((acc, val) => acc + val)} Minutes
+                </Card.Header>
+              </Card>
+              <Button onClick={this.handlePoo}>Add a Poo</Button>
+              <Button onClick={this.handlePee}>Add a Pee</Button>
+            </Card.Group>
+          </Segment>
         }
       </div>
     );
