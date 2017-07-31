@@ -4,14 +4,18 @@ import ModalCarousel from '../components/ModalCarousel'
 import { Card, Icon } from 'semantic-ui-react'
 import PlaceDetailsAdapter from '../adapters/PlaceDetailsAdapter'
 
-export default class PlacesContainer extends React.Component {
+export default class PlaceContainer extends React.Component {
   state = {
     placeData: {},
     clicked: false,
   }
 
-  componentDidMount = () => {
+  componentWillMount = () => {
     PlaceDetailsAdapter.getPlaceDetails(this.props.place.place_id, this.props.location, this.gatherUpResponses)
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    PlaceDetailsAdapter.getPlaceDetails(nextProps.place.place_id, nextProps.location, this.gatherUpResponses)
   }
 
   gatherUpResponses = (place, status) => {
@@ -26,6 +30,7 @@ export default class PlacesContainer extends React.Component {
     this.setState({
       placeData: place
     })
+    console.log('resetting placdData')
   }
 
   handleClick = (e) => {
@@ -33,6 +38,7 @@ export default class PlacesContainer extends React.Component {
   }
 
   render () {
+    console.log('render place container', this.state.placeData)
     return (
       <Card
         link
@@ -44,9 +50,9 @@ export default class PlacesContainer extends React.Component {
           <Card.Meta>
             {this.props.place.vicinity}
           </Card.Meta>
-          <Card.Meta>
-            <a href={this.state.placeData.website} target="_blank" >{this.state.placeData.website}</a>
-          </Card.Meta>
+          {this.state.placeData.website && <Card.Meta>
+            <a href={this.state.placeData.website} target="_blank" ><Icon name='globe'/></a>
+          </Card.Meta>}
         </Card.Content>
         <ModalCarousel placeData={this.state.placeData} />
       </Card>

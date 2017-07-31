@@ -70,6 +70,7 @@ export default class MapContainer extends Component {
       console.error(`error fetching places ${results}`)
     }
     this.sendPlaceData(results)
+    console.log('here are results of place service fetch', results, status)
   }
 
   sendPlaceData = (placeData) => {
@@ -193,10 +194,10 @@ export default class MapContainer extends Component {
       <div>
         <GoogleDirectionsMap
           containerElement={
-            <div  style={{ height: `500px` }} />
+            <div style={{ height: `500px` }} />
           }
           mapElement={
-            <div id='dave' style={{ height: `500px` }} />
+            <div style={{ height: `500px` }} />
           }
           zoom={this.state.zoom}
           center={this.state.origin}
@@ -227,8 +228,8 @@ export default class MapContainer extends Component {
                     return leg.duration.text.split(' ')[0] * 1}).reduce((acc, val) => acc + val)} Minutes
                 </Card.Header>
               </Card>
-              <Button onClick={this.handlePoo}>Add a Poo</Button>
-              <Button onClick={this.handlePee}>Add a Pee</Button>
+              <Button onClick={this.handlePoo} color='brown'>Add a Poo</Button>
+              <Button onClick={this.handlePee} color='yellow'>Add a Pee</Button>
             </Card.Group>
           </Segment>
         }

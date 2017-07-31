@@ -98,7 +98,7 @@ const GoogleDirectionsMap = withGoogleMap(props => (
     })}
 
 
-    {props.waypoints.length > 0 && <DirectionsRenderer directions={props.directions} draggable />}
+    {props.waypoints.length > 0 && <DirectionsRenderer directions={props.directions} draggable={true} />}
   </GoogleMap>
 ))
 

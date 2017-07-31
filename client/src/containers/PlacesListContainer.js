@@ -1,33 +1,32 @@
 import React from 'react'
-import PlacesContainer from '../containers/PlacesContainer'
+import PlaceContainer from '../containers/PlaceContainer'
 import { Segment, Header, Card } from 'semantic-ui-react'
 
 export default class PlacesListContainer extends React.Component {
-  state = {
-    placeIds: [],
-    places: []
-  }
 
   toggleBounce = (placeName) => {
     this.props.passUpPlaceData(placeName)
   }
 
+  renderPlaces = () => {
+    return this.props.places.map((place, index) => {
+      return <PlaceContainer
+        key={index}
+        place={place}
+        location={this.props.location}
+        toggleBounce={this.toggleBounce}
+      />
+    })
+  }
+
   render () {
     return (
       <Segment padded raised>
-        <Header dividing>
+        <Header>
           Places:
         </Header>
         <Card.Group>
-        {this.props.places ? this.props.places.map((place, index) => {
-          return <PlacesContainer
-            key={index}
-            place={place}
-            location={this.props.location}
-            toggleBounce={this.toggleBounce}
-          />
-        })
-        : <h3>Enter an address to see cool dog spots!</h3>}
+          {this.props.places ? this.renderPlaces() : <h3>Something Went Wrong! Refresh the page!</h3>}
         </Card.Group>
       </Segment>
     )

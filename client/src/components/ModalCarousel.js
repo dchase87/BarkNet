@@ -4,9 +4,22 @@ import { Carousel } from 'react-responsive-carousel'
 import '../carousel.css'
 
 export default class ModalCarousel extends React.Component {
+  // constructor(props){
+  //   super(props)
+  //   console.log(this.props, "hi from carosel")
+  //   debugger
+  // }
+  // state = {
+  //   photoArray: []
+  // }
 
-  // componentWillUnmount = () => {
-  //
+  // componentDidMount = () => {
+  //   if (this.props.placeData.photos) {
+  //     this.setState({
+  //       photoArray: this.createPhotoArray()
+  //     })
+  //     console.log('adding photos')
+  //   }
   // }
 
   createPhotoArray = () => {

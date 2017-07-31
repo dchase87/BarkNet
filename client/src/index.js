@@ -7,6 +7,8 @@ import App from './components/App'
 import reducers from './reducers'
 import { AUTH_USER } from './actions/types'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import './App.css'
+import './index.css'
 
 const store = createStore(reducers, composeWithDevTools(
   applyMiddleware(reduxThunk)

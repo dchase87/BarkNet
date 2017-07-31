@@ -7,12 +7,17 @@ import Feature from './feature'
 import RequireAuth from './auth/require_auth'
 import Header from './header'
 import MapPageContainer from '../containers/MapPageContainer'
+import NavBarContainer from '../containers/NavBarContainer'
+import HomeContainer from '../containers/HomeContainer'
+
 
 export default class App extends Component {
   render () {
     return (
       <Router>
         <div>
+          <Route path='/' component={NavBarContainer} />
+          <Route exact path='/' component={HomeContainer} />
           {/* <Route path='/' component={Header} />
           <Route path='/signin' component={Signin} />
           <Route path='/signout' component={Signout} />

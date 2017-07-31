@@ -2,9 +2,10 @@
   text-align: center;
 }
 
-.App-logo {
+.title {
   animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: xx-large;
 }
 
 .App-header {
@@ -19,6 +20,54 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  0%   {color: red;}
+  10%  {color: orange;}
+  20%  {color: brown;}
+  30%  {color: green;}
+  40%  {color: teal;}
+  50%  {color: aqua;}
+  60%  {color: blue;}
+  70%  {color: magenta;}
+  80%  {color: silver;}
+  90%  {color: pink;}
+  100% {color: red;}
+}
+
+#dog-image {
+  position: relative;
+}
+
+#title-overlay {
+  position: absolute;
+  top: 240px;
+  left: 700px;
+  right: 100px;
+  width: 500px;
+  color: white;
+  height: 200px;
+  font-size: 50px;
+  font-family: Helvetica;
+}
+
+#text-overlay {
+  position: absolute;
+  top: 350px;
+  left: 700px;
+  right: 100px;
+  width: 500px;
+  color: white;
+  height: 200px;
+  font-size: 20px;
+  font-family: Helvetica;
+}
+
+#button {
+  position: absolute;
+  top: 400px;
+  left: 700px;
+  right: 100px;
+  color: white;
+  width: 150px;
+  background-color: teal;
+  font-size: 20px;
 }

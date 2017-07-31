@@ -50,7 +50,7 @@ export default class AddressForm extends React.Component {
             <Header>Address: </Header>
             <input required placeholder='address' name='address' value={this.state.address} onChange={this.handleChange} />
           </Form.Field>
-          <Form.Button content='Submit' color='black' />
+          <Form.Button content='Search' color='black' />
         </Form>
       </Segment>
     )
