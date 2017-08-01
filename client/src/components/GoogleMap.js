@@ -55,7 +55,7 @@ const GoogleDirectionsMap = withGoogleMap(props => (
 />
 }
 
-    {props.center.lat() !== 40.728087 && <Marker
+    {props.center.lat() !== 40.728087 && !props.directions && <Marker
       position={{ lat: props.center.lat(), lng: props.center.lng() }}
       animation={google.maps.Animation.DROP}
     />}
@@ -100,7 +100,7 @@ const GoogleDirectionsMap = withGoogleMap(props => (
     })}
 
     {props.waypoints.length > 0 && <DirectionsRenderer directions={props.directions} />}
-    {props.directions && <MarkerAnimation directions={props.directions} />}
+    {props.directions && props.go && <MarkerAnimation directions={props.directions} />}
   </GoogleMap>
 ))
 

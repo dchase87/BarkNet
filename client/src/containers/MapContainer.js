@@ -25,7 +25,8 @@ export default class MapContainer extends Component {
     events: {
       poo: false,
       pee: false
-    }
+    },
+    go: false
   }
 
   componentWillReceiveProps = nextProps => {
@@ -188,23 +189,11 @@ export default class MapContainer extends Component {
     })
   }
 
-  // getPath = () => {
-  //   const fullPath = []
-  //   if (this.state.directions) {
-  //     const legs = this.state.directions.routes[0].legs
-  //     for (let i = 0; i < this.state.directions.routes[0].legs; i++) {
-  //       const steps = legs[i].steps
-  //       for (let j = 0; j < steps.length; j++) {
-  //         const nextSegment = steps[j].path
-  //         for (let k = 0; k < nextSegment.length; k++) {
-  //           fullPath.push(nextSegment[k])
-  //         }
-  //       }
-  //     }
-  //   }
-  //   console.log(fullPath)
-  //   return fullPath
-  // }
+  handleGo = () => {
+    this.setState({
+      go: !this.state.go
+    })
+  }
 
   render() {
     console.log(this.state.events.poo)
@@ -230,7 +219,7 @@ export default class MapContainer extends Component {
           placeName={this.state.placeName}
           poo={this.state.events.poo}
           pee={this.state.events.pee}
-          // path={this.getPath()}
+          go={this.state.go}
         />
         {this.state.directions &&
           <Segment padded>
@@ -249,6 +238,7 @@ export default class MapContainer extends Component {
               </Card>
               <Button onClick={this.handlePoo} color='brown'>Add a Poo</Button>
               <Button onClick={this.handlePee} color='yellow'>Add a Pee</Button>
+              <Button onClick={this.handleGo} color='green'>Go!</Button>
             </Card.Group>
           </Segment>
         }

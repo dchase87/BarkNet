@@ -1,6 +1,8 @@
 /* global google */
 import React from 'react'
 import { Polyline } from 'react-google-maps'
+import bulldog from '../assets/images/bulldog.svg'
+import woof from '../assets/sounds/woof.mp3'
 
 export default class MarkerAnimation extends React.Component {
   state = {
@@ -15,6 +17,7 @@ export default class MarkerAnimation extends React.Component {
 
   componentDidMount = () => {
     this.moveIcon()
+    this.woof()
  }
 
  componentWillReceiveProps = (nextProps) => {
@@ -28,9 +31,17 @@ export default class MarkerAnimation extends React.Component {
       count = (count + 1) % 200;
 
       self.setState({
-        offset: (count / 2) + '%'
+        offset: (count) + '%'
       })
-  }, 20)
+      self.woof()
+  }, 40)
+ }
+
+ woof = () => {
+   var audio = new Audio(woof)
+   if (this.state.offset === '100%') {
+     audio.play()
+   }
  }
 
  getPath = (directions) => {
@@ -63,8 +74,11 @@ export default class MarkerAnimation extends React.Component {
           icons: [{
             icon: {
               path: google.maps.SymbolPath.CIRCLE,
-              scale: 8,
-              strokeColor: '#393'
+              scale: 10,
+              fillColor: 'white',
+              fillOpacity: 1,
+              strokeColor: 'saddleBrown',
+              strokeWeight: 14
             },
             offset: this.state.offset
           }],
