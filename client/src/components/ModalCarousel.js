@@ -1,9 +1,14 @@
+/* global google */
 import React from 'react'
 import { Modal, Button } from 'semantic-ui-react'
 import { Carousel } from 'react-responsive-carousel'
+import PlaceDetailsAdapter from '../adapters/PlaceDetailsAdapter'
 import '../carousel.css'
 
 export default class ModalCarousel extends React.Component {
+  state = {
+    placeData: {}
+  }
   // constructor(props){
   //   super(props)
   //   console.log(this.props, "hi from carosel")
@@ -13,23 +18,37 @@ export default class ModalCarousel extends React.Component {
   //   photoArray: []
   // }
 
-  // componentDidMount = () => {
-  //   if (this.props.placeData.photos) {
-  //     this.setState({
-  //       photoArray: this.createPhotoArray()
-  //     })
-  //     console.log('adding photos')
-  //   }
+
+  handleClick = () => {
+    PlaceDetailsAdapter.getPlaceDetails(this.props.place.place_id, this.props.location, this.gatherUpResponses)
+  }
+
+  // componentWillReceiveProps = (nextProps) => {
+  //   PlaceDetailsAdapter.getPlaceDetails(nextProps.place.place_id, nextProps.location, this.gatherUpResponses)
   // }
 
+  gatherUpResponses = (place, status) => {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      this.storePlace(place)
+    } else {
+      console.error(`error fetching places ${status}`)
+    }
+  }
+
+  storePlace = (place) => {
+    this.setState({
+      placeData: place
+    })
+  }
+
   createPhotoArray = () => {
-    const photos = this.props.placeData.photos
+    const photos = this.state.placeData.photos
       return photos.map(photo => {
         if (photos) {
           return (
             <div key={photo.html_attributions}>
-              <img src={photo.getUrl({'maxWidth': photo.width, 'maxHeight': photo.height})} alt={this.props.name} />
-              <p className="legend">{this.props.placeData.name}</p>
+              <img src={photo.getUrl({'maxWidth': photo.width, 'maxHeight': photo.height})} alt={this.props.place.name} />
+              <p className="legend">{this.state.placeData.name}</p>
             </div>
           )
         }
@@ -37,7 +56,7 @@ export default class ModalCarousel extends React.Component {
     }
 
     renderCarousel = () => {
-      if (this.props.placeData.photos) {
+      if (this.state.placeData.photos) {
         return (
           <Carousel useKeyboardArrows infiniteLoop dynamicHeight swipeScrollTolerance={1} interval={3000} autoPlay showThumbs={false}>
             {this.createPhotoArray()}
@@ -58,8 +77,8 @@ export default class ModalCarousel extends React.Component {
 
   render () {
     return (
-      <Modal trigger={<Button>See Photos</Button>} size='mini'>
-        <Modal.Header>{this.props.placeData.name}</Modal.Header>
+      <Modal trigger={<Button onClick={this.handleClick}>See Photos</Button>} size='mini'>
+        <Modal.Header>{this.props.place.name}</Modal.Header>
         <Modal.Content>
           {this.renderCarousel()}
         </Modal.Content>

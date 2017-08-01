@@ -25,8 +25,10 @@ export default class AddressForm extends React.Component {
   }
 
   getCoords = (state) => {
+    const punctuationLessString = state.address.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+    const finalString = punctuationLessString.replace(/\s{2,}/g," ")
     const geo = geocoder({ key:'AIzaSyBjlJJkNp_63CEmawR3DMj-6Rf0Lw5fbDc'})
-    geo.find(state.address, (err, resp) => {
+    geo.find(finalString, (err, resp) => {
       if (err) {
         console.log(err)
       } else {
@@ -37,6 +39,7 @@ export default class AddressForm extends React.Component {
             long: resp[0].location.lng * 1
           }
         }
+        console.log(newState)
         this.props.passUpLocation(newState)
       }
     })
