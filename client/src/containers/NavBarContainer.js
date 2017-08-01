@@ -7,7 +7,7 @@ export default class NavBarContainer extends React.Component {
   render () {
     return (
       <Menu compact>
-        <Menu.Item header as={NavLink} exact to='/map'>
+        <Menu.Item header as={NavLink} exact to='/'>
           <div className='title'>BarkNet</div>
         </Menu.Item>
       </Menu>

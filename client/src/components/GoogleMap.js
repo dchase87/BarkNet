@@ -4,13 +4,15 @@ import React from 'react'
 import image from '../assets/images/paw_print.png'
 import poop from '../assets/images/poop.png'
 import pee from '../assets/images/pee.png'
+import MarkerAnimation from './MarkerAnimation'
 
 import {
   withGoogleMap,
   GoogleMap,
   DirectionsRenderer,
   Marker,
-  InfoWindow
+  InfoWindow,
+  Polyline
 } from 'react-google-maps'
 
 import DrawingManager from 'react-google-maps/lib/drawing/DrawingManager'
@@ -21,35 +23,35 @@ const GoogleDirectionsMap = withGoogleMap(props => (
     center={props.center}
   >
     {props.directions && props.poo && <DrawingManager
-      drawingMode= {google.maps.drawing.OverlayType.MARKER}
+      drawingMode={google.maps.drawing.OverlayType.MARKER}
       defaultOptions={{
         drawingControl: true,
         drawingControlOptions: {
           position: google.maps.ControlPosition.TOP_CENTER,
           drawingModes: ['marker']
-      },
+        },
         markerOptions: {
           icon: poop,
           animation: google.maps.Animation.DROP,
           draggable: true
         }
-    }}
+      }}
   />
   }
-  {props.directions && props.pee && <DrawingManager
-    drawingMode= {google.maps.drawing.OverlayType.MARKER}
-    defaultOptions={{
-      drawingControl: true,
-      drawingControlOptions: {
-        position: google.maps.ControlPosition.TOP_CENTER,
-        drawingModes: ['marker']
-    },
-      markerOptions: {
-        icon: pee,
-        animation: google.maps.Animation.DROP,
-        draggable: true
-      }
-  }}
+    {props.directions && props.pee && <DrawingManager
+      drawingMode={google.maps.drawing.OverlayType.MARKER}
+      defaultOptions={{
+        drawingControl: true,
+        drawingControlOptions: {
+          position: google.maps.ControlPosition.TOP_CENTER,
+          drawingModes: ['marker']
+        },
+        markerOptions: {
+          icon: pee,
+          animation: google.maps.Animation.DROP,
+          draggable: true
+        }
+      }}
 />
 }
 
@@ -64,13 +66,13 @@ const GoogleDirectionsMap = withGoogleMap(props => (
       const onAddClick = () => props.onAddClick(marker)
       const onRemoveClick = () => props.onRemoveClick(marker)
       const toggleBounce = () => {
-        switch(props.placeName) {
+        switch (props.placeName) {
           case '':
             return google.maps.Animation.DROP
           case marker.name:
             return google.maps.Animation.BOUNCE
           default:
-          return null
+            return null
         }
       }
 
@@ -93,12 +95,12 @@ const GoogleDirectionsMap = withGoogleMap(props => (
               </div>
             </InfoWindow>
             )}
-          </Marker>
+        </Marker>
       )
     })}
 
-
-    {props.waypoints.length > 0 && <DirectionsRenderer directions={props.directions} draggable={true} />}
+    {props.waypoints.length > 0 && <DirectionsRenderer directions={props.directions} />}
+    {props.directions && <MarkerAnimation directions={props.directions} />}
   </GoogleMap>
 ))
 

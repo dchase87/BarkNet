@@ -163,7 +163,7 @@ export default class MapContainer extends Component {
         this.setState({
           directions: result
           })
-          console.log(result)
+          console.log('directions result', result)
       } else {
         console.error(`error fetching directions ${result}`)
       }
@@ -187,6 +187,24 @@ export default class MapContainer extends Component {
       }
     })
   }
+
+  // getPath = () => {
+  //   const fullPath = []
+  //   if (this.state.directions) {
+  //     const legs = this.state.directions.routes[0].legs
+  //     for (let i = 0; i < this.state.directions.routes[0].legs; i++) {
+  //       const steps = legs[i].steps
+  //       for (let j = 0; j < steps.length; j++) {
+  //         const nextSegment = steps[j].path
+  //         for (let k = 0; k < nextSegment.length; k++) {
+  //           fullPath.push(nextSegment[k])
+  //         }
+  //       }
+  //     }
+  //   }
+  //   console.log(fullPath)
+  //   return fullPath
+  // }
 
   render() {
     console.log(this.state.events.poo)
@@ -212,6 +230,7 @@ export default class MapContainer extends Component {
           placeName={this.state.placeName}
           poo={this.state.events.poo}
           pee={this.state.events.pee}
+          // path={this.getPath()}
         />
         {this.state.directions &&
           <Segment padded>
