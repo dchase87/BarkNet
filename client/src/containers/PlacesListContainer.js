@@ -19,14 +19,27 @@ export default class PlacesListContainer extends React.Component {
     })
   }
 
+  renderErrorMessage = () => {
+    return (
+      <Card link>
+        <Card.Content>
+          <Card.Header>
+            Sorry, no dog parks found nearby. Try again!
+          </Card.Header>
+        </Card.Content>
+      </Card>
+    )
+  }
+
   render () {
+    console.log('places', this.props.places)
     return (
       <Segment padded raised>
         <Header>
           Here are Some Nearby Dog Parks:
         </Header>
         <Card.Group>
-          {this.props.places ? this.renderPlaces() : <h3>Something Went Wrong! Refresh the page!</h3>}
+          {this.renderPlaces()}
         </Card.Group>
       </Segment>
     )

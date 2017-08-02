@@ -2,7 +2,7 @@ import React from 'react'
 import AddressForm from '../components/AddressForm'
 import MapContainer from './MapContainer'
 import PlacesListContainer from './PlacesListContainer'
-import { Grid, Container } from 'semantic-ui-react'
+import { Grid, Container, Card } from 'semantic-ui-react'
 
 export default class MapPageContainer extends React.Component {
   state = {
@@ -14,7 +14,8 @@ export default class MapPageContainer extends React.Component {
     },
     places: [],
     showPlaces: false,
-    placeName: ''
+    placeName: '',
+    error: false
   }
 
   setNewMap = (locationData) => {
@@ -29,11 +30,23 @@ export default class MapPageContainer extends React.Component {
   }
 
   setPlaces = (places) => {
-    this.setState({
-      ...this.state,
-      places: places,
-      showPlaces: true
-    })
+    if (places.length !== 0) {
+      this.setState({
+        ...this.state,
+        error: false,
+        places: places,
+        showPlaces: true
+      })
+    } else {
+      this.setState({
+        ...this.state,
+        error: true,
+        places: [],
+        showPlaces: false
+      })
+    }
+    console.log('error', places)
+    console.log(this.state.error)
   }
 
   passDownPlaceData = (placeName) => {
@@ -42,7 +55,23 @@ export default class MapPageContainer extends React.Component {
     })
   }
 
+  renderErrorMessage = () => {
+    return (
+      <Card fluid>
+        <Card.Content>
+          <Card.Header>
+            Sorry, no dog parks found nearby.
+          </Card.Header>
+          <Card.Header>
+            Try again!
+          </Card.Header>
+        </Card.Content>
+      </Card>
+    )
+  }
+
   render () {
+    console.log('render', this.state.error)
     return (
         <Grid padded>
           <Grid.Column width={4}>
@@ -50,13 +79,16 @@ export default class MapPageContainer extends React.Component {
               <AddressForm passUpLocation={this.setNewMap} placeName={this.state.location.address}/>
             </Grid.Row>
               <Grid.Row>
-                {this.state.places.length > 0 && <Container>
-                  <PlacesListContainer
-                    places={this.state.places}
-                    location={this.state.location}
-                    passUpPlaceData={this.passDownPlaceData}
-                  />
+                {this.state.places.length > 0 &&
+                  <Container>
+                    <PlacesListContainer
+                      places={this.state.places}
+                      location={this.state.location}
+                      passUpPlaceData={this.passDownPlaceData}
+                      showPlaces={this.state.showPlaces}
+                    />
                 </Container>}
+                {this.state.error && this.renderErrorMessage()}
               </Grid.Row>
           </Grid.Column>
           <Grid.Column width={12}>
