@@ -3,9 +3,10 @@
 }
 
 .title {
-  animation: App-logo-spin infinite 20s linear;
+  /*animation: App-logo-spin infinite 20s linear;*/
   font-family: 'Press Start 2P', cursive;
   font-size: xx-large;
+  color: black;
 }
 
 .App-header {
@@ -70,4 +71,9 @@
   width: 150px;
   background-color: teal;
   font-size: 20px;
+}
+
+#doggo {
+  height: 50px;
+  width: 50px;
 }
