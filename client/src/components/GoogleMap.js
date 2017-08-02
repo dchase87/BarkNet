@@ -1,6 +1,5 @@
 /* global google */
 import React from 'react'
-
 import image from '../assets/images/paw_print.png'
 import poop from '../assets/images/poop.png'
 import pee from '../assets/images/pee.png'
@@ -11,8 +10,7 @@ import {
   GoogleMap,
   DirectionsRenderer,
   Marker,
-  InfoWindow,
-  Polyline
+  InfoWindow
 } from 'react-google-maps'
 
 import DrawingManager from 'react-google-maps/lib/drawing/DrawingManager'
@@ -21,6 +19,7 @@ const GoogleDirectionsMap = withGoogleMap(props => (
   <GoogleMap
     zoom={props.zoom}
     center={props.center}
+    panControl={true}
   >
     {props.directions && props.poo && <DrawingManager
       drawingMode={google.maps.drawing.OverlayType.MARKER}

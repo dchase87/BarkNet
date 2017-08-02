@@ -39,7 +39,7 @@
 
 #title-overlay {
   position: absolute;
-  top: 240px;
+  top: 250px;
   left: 700px;
   right: 100px;
   width: 500px;
@@ -51,7 +51,7 @@
 
 #text-overlay {
   position: absolute;
-  top: 350px;
+  top: 340px;
   left: 700px;
   right: 100px;
   width: 500px;

@@ -10,29 +10,6 @@ export default class PlaceContainer extends React.Component {
     clicked: false,
   }
 
-  // componentWillMount = () => {
-  //   PlaceDetailsAdapter.getPlaceDetails(this.props.place.place_id, this.props.location, this.gatherUpResponses)
-  // }
-  //
-  // componentWillReceiveProps = (nextProps) => {
-  //   PlaceDetailsAdapter.getPlaceDetails(nextProps.place.place_id, nextProps.location, this.gatherUpResponses)
-  // }
-  //
-  // gatherUpResponses = (place, status) => {
-  //   if (status === google.maps.places.PlacesServiceStatus.OK) {
-  //     this.storePlace(place)
-  //   } else {
-  //     console.error(`error fetching places ${status}`)
-  //   }
-  // }
-  //
-  // storePlace = (place) => {
-  //   this.setState({
-  //     placeData: place
-  //   })
-  //   console.log('resetting placdData')
-  // }
-
   handleClick = (e) => {
     this.props.toggleBounce(this.props.place.name)
   }
@@ -50,9 +27,6 @@ export default class PlaceContainer extends React.Component {
           <Card.Meta>
             {this.props.place.vicinity}
           </Card.Meta>
-          {/* {this.state.placeData.website && <Card.Meta>
-            <a href={this.state.placeData.website} target="_blank" ><Icon name='globe'/></a>
-          </Card.Meta>} */}
         </Card.Content>
         <ModalCarousel place={this.props.place} location={this.props.location} />
       </Card>

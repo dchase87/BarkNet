@@ -39,7 +39,8 @@ export default class MapContainer extends Component {
         waypoints: [],
         directions: null,
         error: false,
-        placeName: ''
+        placeName: '',
+        go: false
       })
       MarkersAdapter.getMarkers(nextProps, this.setMarkers)
     } else if (nextProps.placeName !== this.props.placeName) {
@@ -191,7 +192,13 @@ export default class MapContainer extends Component {
 
   handleGo = () => {
     this.setState({
-      go: !this.state.go
+      go: true
+    })
+  }
+
+  handleStop = () => {
+    this.setState({
+      go: false
     })
   }
 
@@ -238,7 +245,8 @@ export default class MapContainer extends Component {
               </Card>
               <Button onClick={this.handlePoo} color='brown'>Add a Poo</Button>
               <Button onClick={this.handlePee} color='yellow'>Add a Pee</Button>
-              <Button onClick={this.handleGo} color='green'>Go!</Button>
+              {!this.state.go ? <Button onClick={this.handleGo} color='green'>Go!</Button> :
+              <Button onClick={this.handleStop} color='red'>Stop!</Button>}
             </Card.Group>
           </Segment>
         }

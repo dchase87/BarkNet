@@ -31,7 +31,7 @@ export default class MarkerAnimation extends React.Component {
       count = (count + 1) % 200;
 
       self.setState({
-        offset: (count) + '%'
+        offset: (count / 2) + '%'
       })
       self.woof()
   }, 40)
@@ -82,7 +82,7 @@ export default class MarkerAnimation extends React.Component {
             },
             offset: this.state.offset
           }],
-          geodesic: true,
+          geodesic: false,
           strokeOpacity: 1
           }}
       />
