@@ -58,7 +58,7 @@
   width: 500px;
   color: white;
   height: 200px;
-  font-size: 20px;
+  font-size: 25px;
   font-family: Helvetica;
 }
 
@@ -76,4 +76,13 @@
 #doggo {
   height: 50px;
   width: 50px;
+}
+
+#save-button {
+  margin-top: 20px;
+}
+
+#buttons {
+  margin-top: 20px;
+  margin-right: 5px;
 }

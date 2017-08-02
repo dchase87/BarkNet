@@ -9,10 +9,29 @@ import Header from './header'
 import MapPageContainer from '../containers/MapPageContainer'
 import NavBarContainer from '../containers/NavBarContainer'
 import HomeContainer from '../containers/HomeContainer'
+import EditPageContainer from '../containers/EditPageContainer'
 
 
 export default class App extends Component {
+  state = {
+    placeData: {},
+    directions: {}
+  }
+
+  getState = (state) => {
+    this.setState({
+      placeData: state
+    })
+  }
+
+  getDirections = (directions) => {
+    this.setState({
+      directions: directions
+    })
+  }
+
   render () {
+    console.log('rickyjim', this.state.placeData);
     return (
       <Router>
         <div>
@@ -23,7 +42,8 @@ export default class App extends Component {
           <Route path='/signout' component={Signout} />
           <Route path='/signup' component={Signup} />
           <Route path='/feature' component={RequireAuth(Feature)} /> */}
-          <Route exact path='/map' component={MapPageContainer} />
+          <Route exact path='/map' render={() => <MapPageContainer sendState={this.getState} sendDirections={this.getDirections} />} />
+          <Route exact path='/map/edit' render={() => <EditPageContainer placeData={this.state.placeData} directions={this.state.directions} />} />
         </div>
       </Router>
     )

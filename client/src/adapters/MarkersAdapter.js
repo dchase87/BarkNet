@@ -9,7 +9,7 @@ export default class MarkersAdapter {
     const service = new google.maps.places.PlacesService(map)
     service.nearbySearch({
       location: loc,
-      radius: '1500',
+      radius: '1000',
       keyword: 'dog run park',
       type: 'park'
     }, callback)

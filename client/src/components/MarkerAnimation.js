@@ -9,9 +9,10 @@ export default class MarkerAnimation extends React.Component {
     offset: '100%',
     path: []
   }
+  interval = null
 
-  componentWillMount = () => {
-
+  componentWillUnmount = () => {
+    clearInterval(this.interval)
   }
 
   componentDidMount = () => {
@@ -28,7 +29,7 @@ export default class MarkerAnimation extends React.Component {
  moveIcon = () => {
    var count = 0;
    var self = this
-   var interval = setInterval(function() {
+   self.interval = setInterval(function() {
     count = (count + 1) % 200;
 
     self.setState({
@@ -82,7 +83,7 @@ export default class MarkerAnimation extends React.Component {
             },
             offset: this.state.offset
           }],
-          geodesic: false,
+          geodesic: true,
           strokeOpacity: 1
           }}
       />

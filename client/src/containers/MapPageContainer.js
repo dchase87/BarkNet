@@ -37,6 +37,7 @@ export default class MapPageContainer extends React.Component {
         places: places,
         showPlaces: true
       })
+      this.props.sendState(this.state)
     } else {
       this.setState({
         ...this.state,
@@ -53,6 +54,10 @@ export default class MapPageContainer extends React.Component {
     this.setState({
       placeName: placeName
     })
+  }
+
+  sendDirections = (directions) => {
+    this.props.sendDirections(directions)
   }
 
   renderErrorMessage = () => {
@@ -96,6 +101,7 @@ export default class MapPageContainer extends React.Component {
               mapData={this.state.location}
               passUpPlaces={this.setPlaces}
               placeName={this.state.placeName}
+              sendDirections={this.sendDirections}
             />
           </Grid.Column>
         </Grid>

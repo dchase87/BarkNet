@@ -4,17 +4,16 @@ import {
   Component,
 } from "react"
 
-import { Card, Icon, Segment, Button } from 'semantic-ui-react'
-import Poop from '../assets/images/Poop-512.png'
+import { Card, Icon, Segment, Button, Header } from 'semantic-ui-react'
 import GoogleDirectionsMap from '../components/GoogleMap'
 import MarkersAdapter from '../adapters/MarkersAdapter'
-/*
- * Add <script src="https://maps.googleapis.com/maps/api/js"></script> to your HTML to provide google.maps reference
- */
+import RouteDetails from '../components/RouteDetails'
+import { NavLink } from 'react-router-dom'
+
 export default class MapContainer extends Component {
 
   state = {
-    origin: new google.maps.LatLng(40.728087, -73.995669), // NEED TO PASS IN START ADDRESS HERE THROUGH FORM
+    origin: new google.maps.LatLng(40.728087, -73.995669),
     waypoints: [],
     markers: [],
     destination: null,
@@ -165,6 +164,7 @@ export default class MapContainer extends Component {
         this.setState({
           directions: result
           })
+        this.props.sendDirections(result)
           console.log('directions result', result)
       } else {
         console.error(`error fetching directions ${result}`)
@@ -202,37 +202,6 @@ export default class MapContainer extends Component {
     })
   }
 
-  getMinutes = () => {
-    const totalMinutes = this.state.directions.routes[0].legs.map(leg => {
-      return leg.duration.text.split(' ')[0] * 1})
-      .reduce((acc, val) => acc + val)
-    const minutes = totalMinutes % 60
-    const hour = Math.floor(totalMinutes / 60)
-
-    switch (true) {
-      case (hour > 1 && minutes !== 0):
-        return `${hour} Hours ${minutes} Minutes`
-      case (hour > 1 && minutes === 1):
-        return `${hour} Hours ${minutes} Minute`
-      case (hour === 1 && minutes !== 0):
-        return `${hour} Hour ${minutes} Minutes`
-      case (hour === 1 && minutes === 1):
-        return `${hour} Hour ${minutes} Minute`
-      case (hour === 1 && minutes === 0):
-        return `${hour} Hour`
-      case (hour > 1 && minutes === 0):
-        return `${hour} Hours`
-      default:
-        return `${totalMinutes} Minutes`
-    }
-  }
-
-  getMiles = () => {
-    return this.state.directions.routes[0].legs.map(leg => {
-      return leg.distance.text.split(' ')[0] * 1})
-      .reduce((acc, val) => acc + val).toFixed(1)
-  }
-
   render() {
     console.log(this.state.events.poo)
     return (
@@ -255,33 +224,17 @@ export default class MapContainer extends Component {
           onRemoveClick={this.handleRemoveClick}
           directions={this.state.directions}
           placeName={this.state.placeName}
-          poo={this.state.events.poo}
-          pee={this.state.events.pee}
-          go={this.state.go}
+          // poo={this.state.events.poo}
+          // pee={this.state.events.pee}
+          // go={this.state.go}
         />
         {this.state.directions &&
           <Segment padded>
-            <Card.Group itemsPerRow={2}>
-              <Card raised fluid>
-                <Icon size='large' name='paw'/>
-                <Card.Header>
-                  {this.getMiles()} Miles
-                </Card.Header>
-              </Card>
-              <Card raised fluid>
-                <Icon size='large' name='time' />
-                  <Card.Header>
-                    {this.getMinutes()}
-                </Card.Header>
-              </Card>
-              <Button onClick={this.handlePoo} color='brown'>Add a Poo</Button>
-              <Button onClick={this.handlePee} color='yellow'>Add a Pee</Button>
-              {!this.state.go ? <Button onClick={this.handleGo} color='green'>Go!</Button> :
-              <Button onClick={this.handleStop} color='red'>Stop!</Button>}
-            </Card.Group>
+            <RouteDetails directions={this.state.directions} />
+            <Button id='save-button' as={NavLink} exact to='/map/edit' color='green'>Save your route</Button>
           </Segment>
         }
       </div>
-    );
+    )
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import PlaceContainer from '../containers/PlaceContainer'
-import { Segment, Header, Card } from 'semantic-ui-react'
+import { Segment, Header, Card, Icon } from 'semantic-ui-react'
 
 export default class PlacesListContainer extends React.Component {
 
@@ -36,7 +36,7 @@ export default class PlacesListContainer extends React.Component {
     return (
       <Segment padded raised>
         <Header>
-          Here are Some Nearby Dog Parks:
+          Select dog parks on the map <Icon size='tiny' name='arrow right'/>
         </Header>
         <Card.Group>
           {this.renderPlaces()}

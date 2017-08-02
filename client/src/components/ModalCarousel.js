@@ -77,7 +77,7 @@ export default class ModalCarousel extends React.Component {
 
   render () {
     return (
-      <Modal trigger={<Button onClick={this.handleClick}>See Photos</Button>}>
+      <Modal trigger={<Button onClick={this.handleClick}>See More Photos</Button>}>
         <Modal.Header>{this.props.place.name}</Modal.Header>
         <Modal.Content>
           {this.renderCarousel()}
