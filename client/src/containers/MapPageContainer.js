@@ -47,7 +47,7 @@ export default class MapPageContainer extends React.Component {
         <Grid padded>
           <Grid.Column width={4}>
             <Grid.Row>
-              <AddressForm passUpLocation={this.setNewMap} />
+              <AddressForm passUpLocation={this.setNewMap} placeName={this.state.location.address}/>
             </Grid.Row>
               <Grid.Row>
                 {this.state.places.length > 0 && <Container>

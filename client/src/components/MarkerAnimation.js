@@ -11,11 +11,12 @@ export default class MarkerAnimation extends React.Component {
   }
 
   componentWillMount = () => {
-    this.getPath(this.props.directions)
-    console.log('hi', this.props.directions.routes)
+
   }
 
   componentDidMount = () => {
+    this.getPath(this.props.directions)
+    console.log('hi', this.props.directions.routes)
     this.moveIcon()
     this.woof()
  }
@@ -27,13 +28,12 @@ export default class MarkerAnimation extends React.Component {
  moveIcon = () => {
    var count = 0;
    var self = this
-    setInterval(function() {
-      count = (count + 1) % 200;
+   var interval = setInterval(function() {
+    count = (count + 1) % 200;
 
-      self.setState({
-        offset: (count / 2) + '%'
-      })
-      self.woof()
+    self.setState({
+      offset: (count / 2) + '%'
+    })
   }, 40)
  }
 

@@ -23,7 +23,7 @@ export default class PlacesListContainer extends React.Component {
     return (
       <Segment padded raised>
         <Header>
-          Places:
+          Here are Some Nearby Dog Parks:
         </Header>
         <Card.Group>
           {this.props.places ? this.renderPlaces() : <h3>Something Went Wrong! Refresh the page!</h3>}

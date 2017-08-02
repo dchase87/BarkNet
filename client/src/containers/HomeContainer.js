@@ -8,7 +8,7 @@ export default class HomeContainer extends React.Component {
     return (
       <div>
         <p id='title-overlay'>BarkNet</p>
-        <p id='text-overlay'>Use the INTERNET to Find Cool Walks for Your Dog</p>
+        <p id='text-overlay'>Design The Walk of Your Dog's Dreams</p>
         <Button id='button' as={NavLink} exact to='/map'>Get Started</Button>
       </div>
     )

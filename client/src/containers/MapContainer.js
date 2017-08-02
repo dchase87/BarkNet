@@ -202,6 +202,37 @@ export default class MapContainer extends Component {
     })
   }
 
+  getMinutes = () => {
+    const totalMinutes = this.state.directions.routes[0].legs.map(leg => {
+      return leg.duration.text.split(' ')[0] * 1})
+      .reduce((acc, val) => acc + val)
+    const minutes = totalMinutes % 60
+    const hour = Math.floor(totalMinutes / 60)
+
+    switch (true) {
+      case (hour > 1 && minutes !== 0):
+        return `${hour} Hours ${minutes} Minutes`
+      case (hour > 1 && minutes === 1):
+        return `${hour} Hours ${minutes} Minute`
+      case (hour === 1 && minutes !== 0):
+        return `${hour} Hour ${minutes} Minutes`
+      case (hour === 1 && minutes === 1):
+        return `${hour} Hour ${minutes} Minute`
+      case (hour === 1 && minutes === 0):
+        return `${hour} Hour`
+      case (hour > 1 && minutes === 0):
+        return `${hour} Hours`
+      default:
+        return `${totalMinutes} Minutes`
+    }
+  }
+
+  getMiles = () => {
+    return this.state.directions.routes[0].legs.map(leg => {
+      return leg.distance.text.split(' ')[0] * 1})
+      .reduce((acc, val) => acc + val).toFixed(1)
+  }
+
   render() {
     console.log(this.state.events.poo)
     return (
@@ -231,16 +262,16 @@ export default class MapContainer extends Component {
         {this.state.directions &&
           <Segment padded>
             <Card.Group itemsPerRow={2}>
-              <Card fluid>
+              <Card raised fluid>
                 <Icon size='large' name='paw'/>
-                <Card.Header>{this.state.directions.routes[0].legs.map(leg => {
-                    return leg.distance.text.split(' ')[0] * 1}).reduce((acc, val) => acc + val)} Miles
+                <Card.Header>
+                  {this.getMiles()} Miles
                 </Card.Header>
               </Card>
-              <Card fluid>
+              <Card raised fluid>
                 <Icon size='large' name='time' />
-                  <Card.Header>{this.state.directions.routes[0].legs.map(leg => {
-                    return leg.duration.text.split(' ')[0] * 1}).reduce((acc, val) => acc + val)} Minutes
+                  <Card.Header>
+                    {this.getMinutes()}
                 </Card.Header>
               </Card>
               <Button onClick={this.handlePoo} color='brown'>Add a Poo</Button>
