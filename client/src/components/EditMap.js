@@ -17,8 +17,10 @@ import DrawingManager from 'react-google-maps/lib/drawing/DrawingManager'
 const EditMap = withGoogleMap(props => (
   <GoogleMap
     zoom={13}
-    center={new google.maps.LatLng(props.placeData.location.lat, props.placeData.location.long)}
-    panControl={true}
+    defaultCenter={new google.maps.LatLng(props.placeData.location.lat, props.placeData.location.long)}
+    options={{
+      panControl: true
+    }}
   >
     {props.directions && props.poo && <DrawingManager
       drawingMode={google.maps.drawing.OverlayType.MARKER}

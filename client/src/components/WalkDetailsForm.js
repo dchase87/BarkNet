@@ -33,7 +33,6 @@ export default class WalkDetailsForm extends React.Component {
     return (
       <Segment padded raised>
         <Form onSubmit={this.handleSubmit}>
-          {this.state.phase === 4 && <Header>THANK YOU!</Header>}
           {this.state.phase === 0 && <Form.Field>
             <Header>What is your dog's name?</Header>
             <input required placeholder='name' name='name' value={this.state.name} onChange={this.handleChange} />
@@ -50,7 +49,10 @@ export default class WalkDetailsForm extends React.Component {
             <Header>Last one. What is your name?</Header>
             <input required placeholder='human name' name='personName' value={this.state.personName} onChange={this.handleChange} />
           </Form.Field>}
-          {this.state.phase < 4 ? <Form.Button content='Submit' color='black' />
+          {this.state.phase === 4 && <Form.Field>
+            <Header>Thank you! Now click this button.</Header>
+          </Form.Field>}
+          {this.state.phase < 5 ? <Form.Button content='Submit' color='black' />
           : <Image spaced id='doge' src={doge} />}
         </Form>
       </Segment>
