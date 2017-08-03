@@ -17,7 +17,7 @@ import DrawingManager from 'react-google-maps/lib/drawing/DrawingManager'
 const EditMap = withGoogleMap(props => (
   <GoogleMap
     zoom={13}
-    center={props.center}
+    center={new google.maps.LatLng(props.placeData.location.lat, props.placeData.location.long)}
     panControl={true}
   >
     {props.directions && props.poo && <DrawingManager
@@ -53,10 +53,10 @@ const EditMap = withGoogleMap(props => (
     />
   }
 
-    {/* {props.center.lat() !== 40.728087 && !props.directions && <Marker
+    {props.center.lat() !== 40.728087 && !props.directions && <Marker
       position={{ lat: props.center.lat(), lng: props.center.lng() }}
       animation={google.maps.Animation.DROP}
-    />} */}
+    />}
 
     {props.directions && <DirectionsRenderer directions={props.directions} />}
     {props.directions && props.go && <MarkerAnimation directions={props.directions} />}

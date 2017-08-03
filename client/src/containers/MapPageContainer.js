@@ -60,6 +60,10 @@ export default class MapPageContainer extends React.Component {
     this.props.sendDirections(directions)
   }
 
+  sendMarkers = (markers) => {
+    this.props.sendMarkers(markers)
+  }
+
   renderErrorMessage = () => {
     return (
       <Card fluid>
@@ -102,6 +106,7 @@ export default class MapPageContainer extends React.Component {
               passUpPlaces={this.setPlaces}
               placeName={this.state.placeName}
               sendDirections={this.sendDirections}
+              sendMarkers={this.sendMarkers}
             />
           </Grid.Column>
         </Grid>

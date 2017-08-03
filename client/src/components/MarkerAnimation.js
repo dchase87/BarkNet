@@ -31,7 +31,6 @@ export default class MarkerAnimation extends React.Component {
    var self = this
    self.interval = setInterval(function() {
     count = (count + 1) % 200;
-
     self.setState({
       offset: (count / 2) + '%'
     })
@@ -40,9 +39,7 @@ export default class MarkerAnimation extends React.Component {
 
  woof = () => {
    var audio = new Audio(woof)
-   if (this.state.offset === '100%') {
-     audio.play()
-   }
+   audio.play()
  }
 
  getPath = (directions) => {

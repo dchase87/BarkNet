@@ -46,7 +46,7 @@ export default class EditMapContainer extends React.Component {
   }
 
   render() {
-    console.log(this.state.events.poo)
+    console.log(EditMap)
     return (
       <div>
         <EditMap

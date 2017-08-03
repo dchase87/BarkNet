@@ -58,7 +58,9 @@ export default class MapContainer extends Component {
             name: result.name,
             location: result.vicinity,
             showInfo: false,
-            added: false
+            added: false,
+            photos: result.photos,
+            place_id: result.place_id
           }
         })
         this.setState({
@@ -165,6 +167,7 @@ export default class MapContainer extends Component {
           directions: result
           })
         this.props.sendDirections(result)
+        this.props.sendMarkers(this.state.markers)
           console.log('directions result', result)
       } else {
         console.error(`error fetching directions ${result}`)
@@ -172,38 +175,9 @@ export default class MapContainer extends Component {
     })
   }
 
-  handlePoo = () => {
-    this.setState({
-      events: {
-        poo: true,
-        pee: false
-      }
-    })
-  }
-
-  handlePee = () => {
-    this.setState({
-      events: {
-        pee: true,
-        poo: false
-      }
-    })
-  }
-
-  handleGo = () => {
-    this.setState({
-      go: true
-    })
-  }
-
-  handleStop = () => {
-    this.setState({
-      go: false
-    })
-  }
-
   render() {
-    console.log(this.state.events.poo)
+    console.log('rendering map container')
+    console.log('markers', this.state.markers)
     return (
       <div>
         <GoogleDirectionsMap
@@ -215,7 +189,6 @@ export default class MapContainer extends Component {
           }
           zoom={this.state.zoom}
           center={this.state.origin}
-          // onMarkerClick={}
           waypoints={this.state.waypoints}
           markers={this.state.markers}
           onMarkerClick={this.handleMarkerClick}
@@ -224,14 +197,12 @@ export default class MapContainer extends Component {
           onRemoveClick={this.handleRemoveClick}
           directions={this.state.directions}
           placeName={this.state.placeName}
-          // poo={this.state.events.poo}
-          // pee={this.state.events.pee}
-          // go={this.state.go}
         />
         {this.state.directions &&
           <Segment padded>
+            <Header>Round Trip Details:</Header>
             <RouteDetails directions={this.state.directions} />
-            <Button id='save-button' as={NavLink} exact to='/map/edit' color='green'>Save your route</Button>
+            <Button id='save-button' as={NavLink} exact to='/map/edit' color='green'>Save your route!</Button>
           </Segment>
         }
       </div>
